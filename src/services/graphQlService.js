@@ -11,14 +11,12 @@ export default class GraphQlService {
         const request = gql`
             {
                 categories {
-                    category {
-                        name
-                    }
+                    name
                 }
             }
         `;
 
-        this.client.request(request).then();
+        return this.client.request(request);
     };
 
 }
