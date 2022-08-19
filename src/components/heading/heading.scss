@@ -4,18 +4,23 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  .logo {
-    width: 41px;
-    height: 41px;
-    padding: 30px;
-  }
+}
+
+.logo {
+  width: 41px;
+  height: 41px;
+  padding: 30px;
 }
 
 .actions {
+  width: 160px;
+  display: flex;
+  justify-content: center;
+
   button {
     border: 0;
     background-color: transparent;
-    padding: 30px;
+    padding: 30px 12px;
   }
 }
 
@@ -30,7 +35,6 @@
   img {
     width: 20px;
     height: 20px;
-    margin-bottom: 4px;
   }
 }
 

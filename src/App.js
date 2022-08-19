@@ -1,30 +1,21 @@
 import './App.scss';
 import React from 'react';
-import Heading from './components/heading/heading';
-import GraphQlService from './services/graphQlService';
+import {Routes, Route} from 'react-router-dom';
+import MainPage from './pages/mainPage';
+import CartPage from './pages/cartPage';
+import ItemPage from './pages/itemPage';
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            categories: []
-        };
-        this.service = new GraphQlService();
-    }
-
-    componentDidMount() {
-        this.service.getCategories()
-            .then(res => this.setState({categories: res.categories}))
-            .catch(res => console.log(res));
-    }
-
     render() {
         return (
-            <>
-                <div className="contentBox">
-                    <Heading categories={this.state.categories}/>
-                </div>
-            </>
+            <Routes>
+                <Route path={'/'} element={<MainPage />}>
+                    <Route path={'/cart'} element={<CartPage />} />
+                    <Route path={'item'} element={<ItemPage />}>
+                        <Route path={':itemId'} element={<ItemPage />} />
+                    </Route>
+                </Route>
+            </Routes>
         );
     }
 }

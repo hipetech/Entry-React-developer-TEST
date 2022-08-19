@@ -1,10 +1,10 @@
 import React from 'react';
 
-export default class ItemPage extends React.Component {
+export default class CartPage extends React.Component {
     render() {
         return (
             <h2>
-                Item page
+                Cart Page
             </h2>
         );
     }
