@@ -7,11 +7,15 @@ export default class GraphQlService {
         this.client = new GraphQLClient(config.endpoint);
     }
 
-    getCategories = () => {
+    getMainPageData = () => {
         const request = gql`
             {
                 categories {
                     name
+                }
+                currencies {
+                    label,
+                    symbol
                 }
             }
         `;
