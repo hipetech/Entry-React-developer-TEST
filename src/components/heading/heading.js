@@ -30,11 +30,12 @@ export default class Heading extends React.Component {
     };
 
     renderCategories = () => {
-        return this.props.categories.map((elem, index) => <HeadingCategory name={elem.name.toUpperCase()}
+        return this.props.categories.map((elem, index) => <HeadingCategory category={elem}
                                                                            key={index}
                                                                            index={index}
                                                                            selectedIndex={this.state.selectedIndex}
-                                                                           setSelected={this._setSelected}/>);
+                                                                           setSelected={this._setSelected}
+                                                                           setActiveCategory={this.props.setActiveCategory}/>);
     };
 
     _closeOnClickOutside = (e, ref, state, func) => {
@@ -72,7 +73,6 @@ export default class Heading extends React.Component {
                         {
                             this.renderCategories()
                         }
-                        <div className="dot"></div>
                     </nav>
                     <img src={Logo} alt="Logo" className="logo"/>
                     <section className="actions">
@@ -81,8 +81,8 @@ export default class Heading extends React.Component {
                                 <h3>
                                     {this.props.activeCurrency}
                                 </h3>
-                            <img src={this.state.isOpenCurrencyMenu ? CurrencyLogoActive : CurrencyLogoNoActive}
-                                 alt="Currency Logo"/>
+                                <img src={this.state.isOpenCurrencyMenu ? CurrencyLogoActive : CurrencyLogoNoActive}
+                                     alt="Currency Logo"/>
                             </span>
                         </button>
                         <CurrencyMenu currencies={this.props.currencies}
@@ -102,6 +102,7 @@ export default class Heading extends React.Component {
 Heading.propTypes = {
     categories: PropTypes.array,
     currencies: PropTypes.array,
+    setActiveCategory: PropTypes.func,
     activeCurrency: PropTypes.string,
     setActiveCurrency: PropTypes.func
 };

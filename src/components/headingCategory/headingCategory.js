@@ -8,14 +8,17 @@ export default class HeadingCategory extends React.Component {
     }
 
     render() {
-        const {name, index, selectedIndex, setSelected} = this.props;
+        const {category, index, selectedIndex, setSelected, setActiveCategory} = this.props;
 
         return (
             <React.Fragment>
                 <button className={`category ${index === selectedIndex ? 'active' : ''}`}
-                    onClick={() => setSelected(index)}>
+                    onClick={() => {
+                        setSelected(index);
+                        setActiveCategory(category);
+                    }}>
                     {
-                        name
+                        category.name.toUpperCase()
                     }
                 </button>
             </React.Fragment>
@@ -24,8 +27,9 @@ export default class HeadingCategory extends React.Component {
 }
 
 HeadingCategory.propTypes = {
-    name: PropTypes.string,
+    category: PropTypes.object,
     index: PropTypes.number,
     selectedIndex: PropTypes.number,
+    setActiveCategory: PropTypes.func,
     setSelected: PropTypes.func
 };

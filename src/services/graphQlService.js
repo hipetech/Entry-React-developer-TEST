@@ -12,6 +12,19 @@ export default class GraphQlService {
             {
                 categories {
                     name
+                    products {
+                        id
+                        name
+                        inStock
+                        gallery
+                        prices {
+                            currency {
+                                label
+                                symbol
+                            }
+                            amount
+                        }
+                    }
                 }
                 currencies {
                     label,

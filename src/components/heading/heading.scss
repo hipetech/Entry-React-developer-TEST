@@ -9,7 +9,7 @@
 .logo {
   width: 41px;
   height: 41px;
-  padding: 28px 30px;
+  padding: 24px 30px;
   margin-right: 130px;
 }
 
@@ -28,6 +28,10 @@
   display: flex;
   align-items: center;
 
+  h3 {
+    font-weight: 500;
+  }
+
   img {
     width: 6px;
     height: 3px;
@@ -43,7 +47,7 @@
 }
 
 .cart {
-  padding: 10px 12px 30px;
+  padding: 10px 12px 24px;
   img {
     width: 20px;
     height: 20px;

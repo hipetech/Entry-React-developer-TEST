@@ -1,0 +1,70 @@
+@import "../../style/variables";
+
+.itemCardButton {
+  border: 0;
+  border-radius: 100%;
+  background-color: $main;
+  width: 52px;
+  height: 52px;
+  position: absolute;
+  left: 303px;
+  bottom: 5px;
+  transition: bottom 0.5s;
+}
+
+.itemCardButton:hover {
+  transform: scale(1.05);
+}
+
+.buttonShelter {
+  background-color: white;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  left: 303px;
+  bottom: 0;
+  z-index: 1;
+}
+
+.itemCardSection {
+  height: 400px;
+  transition-duration: 0.5s;
+  padding: 16px;
+  position: relative;
+
+  h4 {
+    font-size: 18px;
+    text-align: left;
+    font-weight: 300;
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+.itemCardSection:hover {
+  box-shadow: $shadow;
+  transition-duration: 0.5s;
+
+  .itemCardButton {
+    bottom: 65px;
+    transition: bottom 0.5s;
+  }
+}
+
+.itemCardImgBox {
+  width: 354px;
+  height: 330px;
+  background-color: white;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+  }
+}

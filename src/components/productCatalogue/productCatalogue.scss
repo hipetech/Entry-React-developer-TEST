@@ -1,0 +1,17 @@
+.productCatalogueSection {
+  width: 100%;
+
+  h2 {
+    font-size: 42px;
+    font-weight: 400;
+    margin: 80px 0 100px;
+  }
+}
+
+.itemCards {
+  margin-top: 103px;
+  display: grid;
+  grid-template-columns: repeat(3, 386px);
+  grid-column-gap: 40px;
+  grid-row-gap: 100px;
+}
