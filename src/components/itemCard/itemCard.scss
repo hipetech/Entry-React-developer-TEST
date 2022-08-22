@@ -16,7 +16,7 @@
   transform: scale(1.05);
 }
 
-.buttonShelter {
+.buttonCover {
   background-color: white;
   width: 60px;
   height: 60px;
@@ -67,4 +67,22 @@
     height: 100%;
     object-fit: scale-down;
   }
+}
+
+.notInStock {
+  filter: grayscale(70%);
+  opacity: 0.4;
+}
+
+.disable {
+  display: none;
+}
+
+.outOfStockCaption {
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  left: 110px;
+  bottom: 235px;
+  margin: 0;
 }

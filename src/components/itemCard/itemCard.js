@@ -15,12 +15,10 @@ export default class ItemCard extends React.Component {
     };
 
     render() {
-        // eslint-disable-next-line no-unused-vars
-        const {name, inStock, gallery, prices} = this.props;
-        console.log(prices);
+        const {name, inStock, gallery} = this.props;
 
         return (
-            <section className="itemCardSection">
+            <section className={`itemCardSection ${inStock ? '': 'notInStock'}`}>
                 <div className="itemCardImgBox">
                     <img src={gallery[0]} alt={`${name} image`}/>
                 </div>
@@ -34,10 +32,14 @@ export default class ItemCard extends React.Component {
                         this.renderItemCurrency()
                     }
                 </p>
-                <div className="buttonShelter"></div>
-                <button className="itemCardButton">
+                <button className={`itemCardButton ${inStock ? '': 'disable'}`}>
                     <img src={EmptyCartWhite} alt="White card image"/>
                 </button>
+                <div className="buttonCover"></div>
+                <h5 className={`outOfStockCaption ${inStock ? 'disable': ''}`}>
+                    OUT OF STOCK
+                </h5>
+
             </section>
         );
     }
