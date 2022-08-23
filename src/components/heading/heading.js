@@ -7,6 +7,8 @@ import CurrencyLogoNoActive from '../../resources/CurrencyLogoNoActive.png';
 import CurrencyLogoActive from '../../resources/CurrencyLogoActive.png';
 import Cart from '../../resources/Empty Cart.png';
 import CurrencyMenu from '../currencyMenu/currencyMenu';
+import CartMenu from '../cartMenu/cartMenu';
+import {Outlet} from 'react-router-dom';
 
 export default class Heading extends React.Component {
     constructor(props) {
@@ -14,11 +16,13 @@ export default class Heading extends React.Component {
 
         this.state = {
             selectedIndex: 0,
-            isOpenCurrencyMenu: false
+            isOpenCurrencyMenu: false,
+            isOpenCartMenu: false
         };
 
         this.currencyRef = React.createRef();
-        this.cartRef = React.createRef();
+        this.cartButtonRef = React.createRef();
+
     }
 
     _setSelected = (index) => {
@@ -38,19 +42,22 @@ export default class Heading extends React.Component {
                                                                            setActiveCategory={this.props.setActiveCategory}/>);
     };
 
-    _closeOnClickOutside = (e, ref, state, func) => {
-        if (ref && !ref.current.contains(e.target) && state) {
-            func();
-        }
+    _toggleCartMenu = () => {
+        this.setState({isOpenCartMenu: !this.state.isOpenCartMenu});
+    };
+
+    _closeCartMenu = () => {
+        this.setState({isOpenCartMenu: false});
     };
 
     _closeCurrencyMenuOnClickOutside = (e) => {
-        this._closeOnClickOutside(
-            e,
-            this.currencyRef,
-            this.state.isOpenCurrencyMenu,
-            () => this.setState({isOpenCurrencyMenu: false})
-        );
+        const ref = this.currencyRef,
+            currencyBtn = !this.currencyRef.current.contains(e.target),
+            state = this.state.isOpenCurrencyMenu;
+
+        if (ref && currencyBtn && state) {
+            this.setState({isOpenCurrencyMenu: false});
+        }
     };
 
     componentDidMount() {
@@ -76,7 +83,7 @@ export default class Heading extends React.Component {
                     </nav>
                     <img src={Logo} alt="Logo" className="logo"/>
                     <section className="actions">
-                        <button className={'currency'} onClick={this._toggleCurrencyMenu} ref={this.currencyRef}>
+                        <button className={'headingButtons currency'} onClick={this._toggleCurrencyMenu} ref={this.currencyRef}>
                             <span className="currencyLogo">
                                 <h3>
                                     {this.props.activeCurrency}
@@ -89,11 +96,22 @@ export default class Heading extends React.Component {
                                       isOpenCurrencyMenu={this.state.isOpenCurrencyMenu}
                                       setActiveCurrency={this.props.setActiveCurrency}
                         />
-                        <button className={'cart'}>
+                        <button className={'headingButtons cart'} onClick={this._toggleCartMenu} ref={this.cartButtonRef}>
                             <img src={Cart} alt="Cart"/>
+                            <span className={`cartButtonCounter ${this.props.cartArr.length < 1 ? 'disable': ''}`}>
+                                <p>
+                                    {this.props.cartArr.length}
+                                </p>
+                            </span>
                         </button>
+                        <CartMenu isOpenCartMenu={this.state.isOpenCartMenu}
+                                  _closeCartMenu={this._closeCartMenu}
+                                  cartButtonRef={this.cartButtonRef}
+                                  cartArr={this.props.cartArr}
+                        />
                     </section>
                 </header>
+                <Outlet />
             </>
         );
     }
@@ -104,5 +122,6 @@ Heading.propTypes = {
     currencies: PropTypes.array,
     setActiveCategory: PropTypes.func,
     activeCurrency: PropTypes.string,
-    setActiveCurrency: PropTypes.func
+    setActiveCurrency: PropTypes.func,
+    cartArr: PropTypes.array
 };

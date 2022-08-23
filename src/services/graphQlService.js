@@ -24,6 +24,16 @@ export default class GraphQlService {
                             }
                             amount
                         }
+                        attributes {
+                            id
+                            name
+                            type
+                            items {
+                                displayValue
+                                value
+                                id
+                            }
+                        }
                     }
                 }
                 currencies {

@@ -16,12 +16,13 @@
 .actions {
   display: flex;
   justify-content: center;
+}
 
-  button {
-    border: 0;
-    background-color: transparent;
-    cursor: pointer;
-  }
+.headingButtons {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 3;
 }
 
 .currencyLogo {
@@ -48,9 +49,31 @@
 
 .cart {
   padding: 10px 12px 24px;
+  position: relative;
+
   img {
     width: 20px;
     height: 20px;
   }
+}
+
+.cartButtonCounter {
+  p {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 0;
+  }
+  background-color: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 23px
 }
 
