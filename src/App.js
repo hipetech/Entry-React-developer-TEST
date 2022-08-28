@@ -20,7 +20,6 @@ export default class App extends React.Component {
         this.service = new GraphQlService();
     }
 
-
     // categories
     _setActiveCategory = (category) => {
         this.setState({activeCategory: category});
@@ -104,8 +103,8 @@ export default class App extends React.Component {
     };
 
     // client requests
-    _setProductCategories = () => {
-        this.service.getProductCategories()
+    _setCategories = () => {
+        this.service.getCategories()
             .then(res => {
                 this.setState({
                     categories: res.categories,
@@ -126,9 +125,10 @@ export default class App extends React.Component {
             .catch(res => console.log(res));
     };
 
+
     componentDidMount() {
         this._setCurrencies();
-        this._setProductCategories();
+        this._setCategories();
     }
 
     render() {

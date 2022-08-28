@@ -7,21 +7,33 @@ export default class GraphQlService {
         this.client = new GraphQLClient(config.endpoint);
     }
 
-    getProductCategories = () => {
+    getCategories = () => {
         const request = gql`
             {
                 categories {
                     name
+                }
+            }
+        `;
+
+        return this.client.request(request);
+    };
+
+    getProductsByCategory = (inputCategory) => {
+        const request = gql`
+            {
+                category(input: {title: "${inputCategory}"}) {
                     products {
                         id
                         name
+                        brand
                         inStock
                         gallery
                         prices {
                             currency {
                                 label
                                 symbol
-                            }
+                                }
                             amount
                         }
                         attributes {
@@ -34,7 +46,7 @@ export default class GraphQlService {
                                 id
                             }
                         }
-                        brand
+                            
                     }
                 }
             }

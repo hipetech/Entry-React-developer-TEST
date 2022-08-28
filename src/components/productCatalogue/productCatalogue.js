@@ -2,10 +2,15 @@ import './productCatalogue.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from '../itemCard/itemCard';
+import GraphQlService from '../../services/graphQlService';
 
 export default class ProductCatalogue extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            products: []
+        };
+        this.service = new GraphQlService();
     }
 
     _nameFirstLetterToUpperCase = () => {
@@ -15,18 +20,26 @@ export default class ProductCatalogue extends React.Component {
     };
 
     renderItemCards = () => {
-        const {activeCategory} = this.props;
-        const {products} = activeCategory;
-        if (Array.isArray(products)) {
-            return products.map(elem => {
-                return <ItemCard key={elem.id}
-                                 itemData={elem}
-                                 renderItemCurrency={this.props.renderItemCurrency}
-                                 addItemToCart={this.props.addItemToCart}
-                />;
-            });
-        }
+        return this.state.products.map(elem => {
+            return <ItemCard key={elem.id}
+                             itemData={elem}
+                             renderItemCurrency={this.props.renderItemCurrency}
+                             addItemToCart={this.props.addItemToCart}
+            />;
+        });
     };
+
+    _setProducts = () => {
+        this.service.getProductsByCategory(this.props.activeCategory.name)
+            .then(res => this.setState({products: res.category.products}))
+            .catch(console.log);
+    };
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.activeCategory.name !== this.props.activeCategory.name) {
+            this._setProducts();
+        }
+    }
 
     render() {
         return (
