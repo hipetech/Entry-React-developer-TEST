@@ -1,5 +1,68 @@
+@import "../../style/variables";
+
 .cartItemSection {
   width: 100%;
-  height: 190px;
-  background-color: #5ECE7B;
+  min-height: 190px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.cartItemInfo {
+  width: 136px;
+  height: 100%;
+
+  h3 {
+    font-size: 16px;
+    font-weight: 300;
+    color: $textColor;
+    text-align: left;
+    margin: 0;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 13px;
+    margin-bottom: 15px;
+  }
+}
+
+.cartItemCounter {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 8px;
+
+  button {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.cartItemImg {
+  width: 121px;
+  height: 100%;
+  background-color: white;
+
+  img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
 }

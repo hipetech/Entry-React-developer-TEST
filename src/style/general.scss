@@ -1,0 +1,34 @@
+@import "variables";
+
+.transparentButton {
+  border: 1px solid black;
+  background-color: transparent;
+  color: black;
+}
+
+.transparentButton:hover {
+  background-color: black;
+  color: white;
+}
+
+.greenButton {
+  border: none;
+  color: white;
+  background-color: $main;
+}
+
+.greenButton:hover {
+  background-color: white;
+  color: $main;
+  border: 1px solid $main;
+}
+
+.counterButton {
+  background-color: transparent;
+  border: 1px solid black;
+  font-size: 14px;
+}
+
+.disable {
+  display: none;
+}

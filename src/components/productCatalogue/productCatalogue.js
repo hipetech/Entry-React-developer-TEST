@@ -15,16 +15,14 @@ export default class ProductCatalogue extends React.Component {
     };
 
     renderItemCards = () => {
-        const {activeCategory, activeCurrency} = this.props;
+        const {activeCategory} = this.props;
         const {products} = activeCategory;
         if (Array.isArray(products)) {
             return products.map(elem => {
                 return <ItemCard key={elem.id}
-                                 name={elem.name}
-                                 inStock={elem.inStock}
-                                 gallery={elem.gallery}
-                                 prices={elem.prices}
-                                 activeCurrency={activeCurrency}
+                                 itemData={elem}
+                                 renderItemCurrency={this.props.renderItemCurrency}
+                                 addItemToCart={this.props.addItemToCart}
                 />;
             });
         }
@@ -49,6 +47,8 @@ export default class ProductCatalogue extends React.Component {
 }
 
 ProductCatalogue.propTypes = {
-    activeCurrency: PropTypes.string,
-    activeCategory: PropTypes.object
+    activeCategory: PropTypes.object,
+    renderItemCurrency: PropTypes.func,
+    addItemToCart: PropTypes.func,
+    noDuplicateCartArr: PropTypes.func
 };

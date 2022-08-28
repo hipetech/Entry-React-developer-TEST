@@ -30,9 +30,25 @@ export default class CartMenu extends React.Component {
     };
 
     renderCartItems = () => {
-        return this.props.cartArr.map(elem => {
-           return <CartItem key={elem.id} cartItemData={elem}/>;
+        const arr = this.props.cartList;
+        return arr.map((elem, index) => {
+            return <CartItem
+                key={index}
+                cartItemData={elem}
+                renderItemCurrency={this.props.renderItemCurrency}
+                increaseItemCount={this.props.increaseItemCount}
+                decreaseItemCount={this.props.decreaseItemCount}
+                getItemCount={this.props.getItemCount}
+            />;
         });
+    };
+
+    renderTotalItemPrice = () => {
+        if (this.props.cartList.length) {
+            return this.props.renderItemCurrency(this.props.cartList[0].prices)[0] + this.props.totalItemPrice();
+        } else {
+            return 'There is no items';
+        }
     };
 
     componentDidMount() {
@@ -48,17 +64,17 @@ export default class CartMenu extends React.Component {
     }
 
     render() {
-        const {isOpenCartMenu, cartArr} = this.props;
+        const {isOpenCartMenu, cartList} = this.props;
         this._blockScroll();
 
         return (
             <>
                 <section className={`cartMenuBackground ${isOpenCartMenu ? '' : 'disable'}`}></section>
-                <section className={`cartMenuSection ${isOpenCartMenu ? 'enableCartMenu' : 'disableCartMenu'}`}
-                         ref={this.cartMenuRef}>
+                <form className={`cartMenuSection ${isOpenCartMenu ? 'enableCartMenu' : 'disableCartMenu'}`}
+                      ref={this.cartMenuRef}>
                     <h3>
                         <span className="myBagCaption"> My bag, </span>
-                        {cartArr.length < 1 ? 'empty': `${cartArr.length} items`}
+                        {cartList.length < 1 ? 'empty' : `${cartList.length} items`}
                     </h3>
                     <div className="cartItems">
                         {
@@ -70,18 +86,22 @@ export default class CartMenu extends React.Component {
                             Total
                         </h3>
                         <h3>
-                            200$
+                            {
+                                this.renderTotalItemPrice()
+                            }
                         </h3>
                     </div>
                     <div className="cartMenuButtons">
-                        <button className={'cartMenuButton transparentButton'}>
+                        <button className={'cartMenuButton transparentButton'}
+                                onClick={event => event.preventDefault()}>
                             VIEW BAG
                         </button>
-                        <button className={'cartMenuButton greenButton'}>
+                        <button type="submit" className={'cartMenuButton greenButton'}
+                                onClick={event => event.preventDefault()}>
                             CHECK OUT
                         </button>
                     </div>
-                </section>
+                </form>
             </>
         );
     }
@@ -91,5 +111,10 @@ CartMenu.propTypes = {
     isOpenCartMenu: PropTypes.bool,
     _closeCartMenu: PropTypes.func,
     cartButtonRef: PropTypes.any,
-    cartArr: PropTypes.array
+    cartList: PropTypes.array,
+    renderItemCurrency: PropTypes.func,
+    totalItemPrice: PropTypes.func,
+    increaseItemCount: PropTypes.func,
+    decreaseItemCount: PropTypes.func,
+    getItemCount: PropTypes.func
 };

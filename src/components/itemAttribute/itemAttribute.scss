@@ -1,0 +1,65 @@
+@import "../../style/variables";
+
+.attributeSection {
+  margin: 8px 0;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+.attributeItems {
+  margin-top: 8px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.attributeItem {
+  margin: 0 7px 8px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    visibility: hidden;
+    position: absolute;
+  }
+}
+
+.typeText {
+  border: 1px solid black;
+  text-align: center;
+  background-color: transparent;
+
+  p {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    margin: 2px;
+  }
+}
+
+.typeTextActive {
+  background-color: black;
+  p {
+    color: white;
+  }
+}
+
+.typeColor {
+  border: 1px solid black;
+  margin-left: 1px;
+
+  p {
+    display: none;
+  }
+}
+
+.typeColorActive {
+  border: 1px white solid;
+  box-shadow: 0 0 0 1px $main;
+}

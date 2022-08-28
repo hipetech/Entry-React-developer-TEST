@@ -8,35 +8,58 @@ export default class ItemCard extends React.Component {
         super(prop);
     }
 
-    renderItemCurrency = () => {
-        const {prices, activeCurrency} = this.props;
-        const arr = prices.filter(elem => elem.currency.symbol === activeCurrency);
-        return `${arr[0].currency.symbol} ${arr[0].amount}`;
+    setDefaultAttributes = () => {
+        const {itemData} = this.props;
+        let arr = [];
+        itemData.attributes.forEach(elem => {
+            arr = [...arr, {
+                attributeId: elem.id,
+                selectedValue: elem.items[0].value
+            }];
+        });
+        return arr;
     };
 
+    addItemToCartOnClick = () => {
+        const {itemData, addItemToCart} = this.props;
+
+        const value = {
+            id: itemData.id,
+            name: itemData.name,
+            brand: itemData.brand,
+            prices: itemData.prices,
+            attributes: itemData.attributes,
+            gallery: itemData.gallery,
+            selectedAttributes: this.setDefaultAttributes()
+        };
+
+        addItemToCart(value);
+    };
+
+
     render() {
-        const {name, inStock, gallery} = this.props;
+        const {itemData, renderItemCurrency} = this.props;
 
         return (
-            <section className={`itemCardSection ${inStock ? '': 'notInStock'}`}>
+            <section className={`itemCardSection ${itemData.inStock ? '': 'notInStock'}`}>
                 <div className="itemCardImgBox">
-                    <img src={gallery[0]} alt={`${name} image`}/>
+                    <img src={itemData.gallery[0]} alt={`${name} image`} />
                 </div>
                 <h4>
                     {
-                        name
+                        `${itemData.brand} ${itemData.name}`
                     }
                 </h4>
                 <p>
                     {
-                        this.renderItemCurrency()
+                        renderItemCurrency(itemData.prices)
                     }
                 </p>
-                <button className={`itemCardButton ${inStock ? '': 'disable'}`}>
+                <button className={`itemCardButton ${itemData.inStock ? '': 'disable'}`} onClick={this.addItemToCartOnClick}>
                     <img src={EmptyCartWhite} alt="White card image"/>
                 </button>
                 <div className="buttonCover"></div>
-                <h5 className={`outOfStockCaption ${inStock ? 'disable': ''}`}>
+                <h5 className={`outOfStockCaption ${itemData.inStock ? 'disable': ''}`}>
                     OUT OF STOCK
                 </h5>
 
@@ -46,9 +69,7 @@ export default class ItemCard extends React.Component {
 }
 
 ItemCard.propTypes = {
-    name: PropTypes.string,
-    inStock: PropTypes.bool,
-    gallery: PropTypes.array,
-    prices: PropTypes.array,
-    activeCurrency: PropTypes.string
+    itemData: PropTypes.object,
+    renderItemCurrency: PropTypes.func,
+    addItemToCart: PropTypes.func
 };

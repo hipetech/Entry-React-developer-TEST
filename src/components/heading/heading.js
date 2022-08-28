@@ -98,16 +98,21 @@ export default class Heading extends React.Component {
                         />
                         <button className={'headingButtons cart'} onClick={this._toggleCartMenu} ref={this.cartButtonRef}>
                             <img src={Cart} alt="Cart"/>
-                            <span className={`cartButtonCounter ${this.props.cartArr.length < 1 ? 'disable': ''}`}>
+                            <span className={`cartButtonCounter ${this.props.cartList.length < 1 ? 'disable': ''}`}>
                                 <p>
-                                    {this.props.cartArr.length}
+                                    {this.props.cartList.length}
                                 </p>
                             </span>
                         </button>
                         <CartMenu isOpenCartMenu={this.state.isOpenCartMenu}
                                   _closeCartMenu={this._closeCartMenu}
                                   cartButtonRef={this.cartButtonRef}
-                                  cartArr={this.props.cartArr}
+                                  cartList={this.props.cartList}
+                                  renderItemCurrency={this.props.renderItemCurrency}
+                                  totalItemPrice={this.props.totalItemPrice}
+                                  increaseItemCount={this.props.increaseItemCount}
+                                  decreaseItemCount={this.props.decreaseItemCount}
+                                  getItemCount={this.props.getItemCount}
                         />
                     </section>
                 </header>
@@ -123,5 +128,10 @@ Heading.propTypes = {
     setActiveCategory: PropTypes.func,
     activeCurrency: PropTypes.string,
     setActiveCurrency: PropTypes.func,
-    cartArr: PropTypes.array
+    cartList: PropTypes.array,
+    renderItemCurrency: PropTypes.func,
+    totalItemPrice: PropTypes.func,
+    increaseItemCount: PropTypes.func,
+    decreaseItemCount: PropTypes.func,
+    getItemCount: PropTypes.func
 };
