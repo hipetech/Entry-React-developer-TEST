@@ -15,8 +15,9 @@ export default class ProductCatalogue extends React.Component {
 
     _nameFirstLetterToUpperCase = () => {
         const {activeCategory} = this.props;
-        const {name} = activeCategory;
-        if (typeof name === 'string') return name.substring(0, 1).toUpperCase() + name.substring(1, name.length);
+        if (typeof activeCategory === 'string') {
+            return activeCategory.substring(0, 1).toUpperCase() + activeCategory.substring(1, activeCategory.length);
+        }
     };
 
     renderItemCards = () => {
@@ -30,13 +31,17 @@ export default class ProductCatalogue extends React.Component {
     };
 
     _setProducts = () => {
-        this.service.getProductsByCategory(this.props.activeCategory.name)
+        this.service.getProductsByCategory(this.props.activeCategory)
             .then(res => this.setState({products: res.category.products}))
             .catch(console.log);
     };
 
+    componentDidMount() {
+        this._setProducts();
+    }
+
     componentDidUpdate(prevProps) {
-        if (prevProps.activeCategory.name !== this.props.activeCategory.name) {
+        if (prevProps.activeCategory !== this.props.activeCategory) {
             this._setProducts();
         }
     }
@@ -60,7 +65,7 @@ export default class ProductCatalogue extends React.Component {
 }
 
 ProductCatalogue.propTypes = {
-    activeCategory: PropTypes.object,
+    activeCategory: PropTypes.string,
     renderItemCurrency: PropTypes.func,
     addItemToCart: PropTypes.func,
     noDuplicateCartArr: PropTypes.func

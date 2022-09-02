@@ -1,0 +1,35 @@
+@import "../../style/variables";
+
+.itemPageGallerySection {
+  width: 95px;
+  max-height: 511px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  margin-right: 40px;
+}
+
+.itemPageGallerySection::-webkit-scrollbar {
+  width: 5px;
+}
+
+.itemPageGallerySection::-webkit-scrollbar-thumb {
+  background-color: $hoverColor;
+}
+
+.galleryImagesImgBox {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 40px;
+
+  img {
+    object-fit: scale-down;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.galleryImagesImgBox:last-child {
+  margin: 0;
+}

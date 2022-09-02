@@ -1,6 +1,7 @@
 import './headingCategory.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 export default class HeadingCategory extends React.Component {
     constructor(props) {
@@ -11,17 +12,17 @@ export default class HeadingCategory extends React.Component {
         const {category, index, selectedIndex, setSelected, setActiveCategory} = this.props;
 
         return (
-            <React.Fragment>
+            <Link to={'/'}>
                 <button className={`category ${index === selectedIndex ? 'active' : ''}`}
-                    onClick={() => {
-                        setSelected(index);
-                        setActiveCategory(category);
-                    }}>
+                        onClick={() => {
+                            setSelected(index);
+                            setActiveCategory(category);
+                        }}>
                     {
                         category.name.toUpperCase()
                     }
                 </button>
-            </React.Fragment>
+            </Link>
         );
     }
 }

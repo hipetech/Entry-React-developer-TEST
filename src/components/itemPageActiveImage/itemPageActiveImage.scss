@@ -1,0 +1,14 @@
+.itemPageActiveImageSection {
+  margin-right: 100px;
+}
+
+.activeImageImgBox {
+  width: 610px;
+  height: 511px;
+
+  img {
+    object-fit: scale-down;
+    width: 100%;
+    height: 100%;
+  }
+}

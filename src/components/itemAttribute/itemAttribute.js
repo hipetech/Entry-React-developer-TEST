@@ -5,14 +5,17 @@ import PropTypes from 'prop-types';
 export default class ItemAttribute extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            selectedValue: null
+            activeValue: null
         };
     }
 
     _setSelectedValue = (e) => {
-        this.setState({selectedValue: e.target.value});
+        this.setState({activeValue: e.target.value});
+        if (!this.props.autoSelect) {
+            this.props.setAttributeValue(e.target.value);
+        }
+
     };
 
     _setCheckedValue = (elem) => {
@@ -20,7 +23,7 @@ export default class ItemAttribute extends React.Component {
         if (autoSelect) {
             return selectDefault.attributeId === attributeData.id && selectDefault.selectedValue === elem.value;
         }
-        return elem.value === this.state.selectedValue;
+        return elem.value === this.state.activeValue;
     };
 
     checkBoxElem = (elem, style, selector, activeSelector) => {
@@ -33,7 +36,8 @@ export default class ItemAttribute extends React.Component {
                 style={style}
                 key={elem.id}
             >
-                <input type="radio" name={itemId + attributeData.id} value={elem.value}
+                <input type="radio" name={itemId + attributeData.id}
+                       value={elem.value}
                        onChange={this._setSelectedValue}
                        checked={condition}
                        disabled={disabled}
@@ -80,16 +84,21 @@ export default class ItemAttribute extends React.Component {
     };
 
     render() {
-        const {attributeData} = this.props;
+        const {attributeData, labelUpperCase, labelFontSize, labelFontWeight, labelFontFamily} = this.props;
+        const labelStyle = {
+            fontSize: labelFontSize,
+            fontWeight: labelFontWeight,
+            fontFamily: labelFontFamily
+        };
 
         return (
             <>
                 <section className="attributeSection">
-                    <h3>
-                        {
-                            `${attributeData.name}:`
-                        }
-                    </h3>
+                        <h3 style={labelStyle}>
+                            {
+                                `${labelUpperCase ? attributeData.name.toUpperCase(): attributeData.name}:`
+                            }
+                        </h3>
                     <div className="attributeItems">
                         {
                             this.renderAttributes()
@@ -105,11 +114,16 @@ ItemAttribute.propTypes = {
     attributeData: PropTypes.object,
     itemId: PropTypes.string,
     selectDefault: PropTypes.object,
+    labelFontSize: PropTypes.string,
+    labelFontWeight: PropTypes.string,
+    labelFontFamily: PropTypes.string,
     textAttributeItemWidth: PropTypes.string,
     textAttributeItemHeight: PropTypes.string,
     textAttributeItemFontSize: PropTypes.string,
     colorAttributeItemWidth: PropTypes.string,
     colorAttributeItemHeight: PropTypes.string,
     disabled: PropTypes.bool,
-    autoSelect: PropTypes.bool
+    autoSelect: PropTypes.bool,
+    labelUpperCase: PropTypes.bool,
+    setAttributeValue: PropTypes.func
 };

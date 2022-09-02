@@ -6,7 +6,6 @@ import CartItem from '../cartItem/cartItem';
 export default class CartMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.cartMenuRef = React.createRef();
     }
 
     _blockScroll = () => {
@@ -14,18 +13,6 @@ export default class CartMenu extends React.Component {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
-        }
-    };
-
-    _closeCartMenuOnClickOutside = (e) => {
-        const {cartButtonRef, isOpenCartMenu, _closeCartMenu} = this.props;
-
-        const ref = (this.cartMenuRef && cartButtonRef),
-            cartMenu = !this.cartMenuRef.current.contains(e.target),
-            cartButton = !cartButtonRef.current.contains(e.target);
-
-        if (ref && cartMenu && cartButton && isOpenCartMenu) {
-            _closeCartMenu();
         }
     };
 
@@ -39,6 +26,7 @@ export default class CartMenu extends React.Component {
                 increaseItemCount={this.props.increaseItemCount}
                 decreaseItemCount={this.props.decreaseItemCount}
                 getItemCount={this.props.getItemCount}
+                closeCartMenu={this.props.closeCartMenu}
             />;
         });
     };
@@ -51,27 +39,15 @@ export default class CartMenu extends React.Component {
         }
     };
 
-    componentDidMount() {
-        document.addEventListener('click', (e) => {
-            this._closeCartMenuOnClickOutside(e);
-        });
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('click', (e) => {
-            this._closeCartMenuOnClickOutside(e);
-        });
-    }
-
     render() {
-        const {isOpenCartMenu, cartList} = this.props;
+        const {isOpenCartMenu, cartList, closeCartMenu, cartMenuRef} = this.props;
         this._blockScroll();
 
         return (
             <>
-                <section className={`cartMenuBackground ${isOpenCartMenu ? '' : 'disable'}`}></section>
+                <section className={`cartMenuBackground ${isOpenCartMenu ? '' : 'disable'}`} onClick={closeCartMenu}></section>
                 <form className={`cartMenuSection ${isOpenCartMenu ? 'enableCartMenu' : 'disableCartMenu'}`}
-                      ref={this.cartMenuRef}>
+                      ref={cartMenuRef}>
                     <h3>
                         <span className="myBagCaption"> My bag, </span>
                         {cartList.length < 1 ? 'empty' : `${cartList.length} items`}
@@ -107,14 +83,16 @@ export default class CartMenu extends React.Component {
     }
 }
 
+
+
 CartMenu.propTypes = {
     isOpenCartMenu: PropTypes.bool,
-    _closeCartMenu: PropTypes.func,
-    cartButtonRef: PropTypes.any,
+    closeCartMenu: PropTypes.func,
     cartList: PropTypes.array,
     renderItemCurrency: PropTypes.func,
     totalItemPrice: PropTypes.func,
     increaseItemCount: PropTypes.func,
     decreaseItemCount: PropTypes.func,
-    getItemCount: PropTypes.func
+    getItemCount: PropTypes.func,
+    cartMenuRef: PropTypes.any
 };

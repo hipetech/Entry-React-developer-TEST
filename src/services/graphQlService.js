@@ -7,7 +7,7 @@ export default class GraphQlService {
         this.client = new GraphQLClient(config.endpoint);
     }
 
-    getCategories = () => {
+    getCategories = async () => {
         const request = gql`
             {
                 categories {
@@ -16,46 +16,10 @@ export default class GraphQlService {
             }
         `;
 
-        return this.client.request(request);
+        return await this.client.request(request);
     };
 
-    getProductsByCategory = (inputCategory) => {
-        const request = gql`
-            {
-                category(input: {title: "${inputCategory}"}) {
-                    products {
-                        id
-                        name
-                        brand
-                        inStock
-                        gallery
-                        prices {
-                            currency {
-                                label
-                                symbol
-                                }
-                            amount
-                        }
-                        attributes {
-                            id
-                            name
-                            type
-                            items {
-                                displayValue
-                                value
-                                id
-                            }
-                        }
-                            
-                    }
-                }
-            }
-        `;
-
-        return this.client.request(request);
-    };
-
-    getCurrencies = () => {
+    getCurrencies = async () => {
         const request = gql`
             {
                 currencies {
@@ -65,7 +29,74 @@ export default class GraphQlService {
             }
         `;
 
-        return this.client.request(request);
+        return await this.client.request(request);
     };
 
+    getProductsByCategory = async (inputCategory) => {
+        const request = gql`
+        {
+            category(input: {title: "${inputCategory}"}) {
+                products {
+                    id
+                    name
+                    inStock
+                    gallery
+                    attributes {
+                        id
+                        name
+                        type
+                        items {
+                            displayValue
+                            value
+                            id
+                        }
+                    }
+                    prices {
+                        currency {
+                            label
+                            symbol
+                        }
+                        amount
+                    }
+                    brand
+                }
+            }
+        }
+        `;
+        return await this.client.request(request);
+    };
+
+    getProductById = async (productId) => {
+        const request = gql`
+        {
+            product(id: "${productId}") {
+                id
+                name
+                inStock
+                gallery
+                description
+                attributes {
+                    id
+                    name
+                    type
+                    items {
+                        displayValue
+                        value
+                        id
+                    }
+                }
+                prices {
+                    currency {
+                        label
+                        symbol
+                    }
+                    amount
+                }
+                brand
+            }
+        }
+        `;
+
+        return await this.client.request(request);
+    };
 }

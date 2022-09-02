@@ -21,7 +21,7 @@ export default class Heading extends React.Component {
         };
 
         this.currencyRef = React.createRef();
-        this.cartButtonRef = React.createRef();
+        this.cartMenuRef = React.createRef();
 
     }
 
@@ -46,7 +46,7 @@ export default class Heading extends React.Component {
         this.setState({isOpenCartMenu: !this.state.isOpenCartMenu});
     };
 
-    _closeCartMenu = () => {
+    closeCartMenu = () => {
         this.setState({isOpenCartMenu: false});
     };
 
@@ -57,6 +57,12 @@ export default class Heading extends React.Component {
 
         if (ref && currencyBtn && state) {
             this.setState({isOpenCurrencyMenu: false});
+        }
+    };
+
+    _closeCartMenuOnClickHeading = (e) => {
+        if (this.state.isOpenCartMenu && !this.cartMenuRef.current.contains(e.target)) {
+            this.closeCartMenu();
         }
     };
 
@@ -75,7 +81,7 @@ export default class Heading extends React.Component {
     render() {
         return (
             <>
-                <header className={'heading'}>
+                <header className={'heading'} onClick={this._closeCartMenuOnClickHeading}>
                     <nav className={'categories'}>
                         {
                             this.renderCategories()
@@ -83,7 +89,8 @@ export default class Heading extends React.Component {
                     </nav>
                     <img src={Logo} alt="Logo" className="logo"/>
                     <section className="actions">
-                        <button className={'headingButtons currency'} onClick={this._toggleCurrencyMenu} ref={this.currencyRef}>
+                        <button className={'headingButtons currency'} onClick={this._toggleCurrencyMenu}
+                                ref={this.currencyRef}>
                             <span className="currencyLogo">
                                 <h3>
                                     {this.props.activeCurrency}
@@ -105,7 +112,8 @@ export default class Heading extends React.Component {
                             </span>
                         </button>
                         <CartMenu isOpenCartMenu={this.state.isOpenCartMenu}
-                                  _closeCartMenu={this._closeCartMenu}
+                                  closeCartMenu={this.closeCartMenu}
+                                  headingRef={this.headingRef}
                                   cartButtonRef={this.cartButtonRef}
                                   cartList={this.props.cartList}
                                   renderItemCurrency={this.props.renderItemCurrency}
@@ -113,6 +121,7 @@ export default class Heading extends React.Component {
                                   increaseItemCount={this.props.increaseItemCount}
                                   decreaseItemCount={this.props.decreaseItemCount}
                                   getItemCount={this.props.getItemCount}
+                                  cartMenuRef={this.cartMenuRef}
                         />
                     </section>
                 </header>

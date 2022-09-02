@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import plus from '../../resources/plus.svg';
 import minus from '../../resources/minus.svg';
 import ItemAttribute from '../itemAttribute/itemAttribute';
+import {Link} from 'react-router-dom';
 
 export default class CartItem extends React.Component {
     constructor(props) {
@@ -22,11 +23,16 @@ export default class CartItem extends React.Component {
 
     renderAttributes = () => {
         const {cartItemData} = this.props;
-
+        const {id} = cartItemData;
         return cartItemData.attributes.map((elem, index) => {
             return <ItemAttribute key={elem.id}
                                   attributeData={elem}
+                                  itemId={id}
                                   selectDefault={cartItemData.selectedAttributes[index]}
+                                  labelFontSize={'14px'}
+                                  labelFontWeight={'400'}
+                                  labelFontFamily={'"Raleway", sans-serif'}
+                                  labelUpperCase={false}
                                   textAttributeItemWidth={'24px'}
                                   textAttributeItemHeight={'24px'}
                                   textAttributeItemFontSize={'14px'}
@@ -45,9 +51,11 @@ export default class CartItem extends React.Component {
             <>
                 <section className="cartItemSection">
                     <div className="cartItemInfo">
-                        <h3>
-                            {`${cartItemData.brand} ${cartItemData.name}`}
-                        </h3>
+                        <Link to={`/item/${cartItemData.id}`}>
+                            <h3 onClick={this.props.closeCartMenu}>
+                                {`${cartItemData.brand} ${cartItemData.name}`}
+                            </h3>
+                        </Link>
                         <p>
                             {
                                 renderItemCurrency(cartItemData.prices)
@@ -86,5 +94,6 @@ CartItem.propTypes = {
     renderItemCurrency: PropTypes.func,
     increaseItemCount: PropTypes.func,
     decreaseItemCount: PropTypes.func,
-    getItemCount: PropTypes.func
+    getItemCount: PropTypes.func,
+    closeCartMenu: PropTypes.func
 };

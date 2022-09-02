@@ -2,11 +2,6 @@
 
 .attributeSection {
   margin: 8px 0;
-
-  h3 {
-    font-size: 14px;
-    font-weight: 400;
-  }
 }
 
 .attributeItems {
@@ -19,7 +14,7 @@
 }
 
 .attributeItem {
-  margin: 0 7px 8px 0;
+  margin: 0 6px 8px 0;
   position: relative;
   display: flex;
   justify-content: center;
@@ -51,8 +46,8 @@
 }
 
 .typeColor {
-  border: 1px solid black;
-  margin-left: 1px;
+  border: 1px solid #e1e1e1;
+  margin-left: 2px;
 
   p {
     display: none;
@@ -61,5 +56,5 @@
 
 .typeColorActive {
   border: 1px white solid;
-  box-shadow: 0 0 0 1px $main;
+  box-shadow: 0 0 0 2px $main;
 }

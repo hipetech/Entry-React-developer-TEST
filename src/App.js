@@ -2,7 +2,7 @@ import './App.scss';
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import CartPage from './pages/cartPage';
-import ItemPage from './pages/itemPage';
+import ItemPage from './pages/itemPage/itemPage';
 import GraphQlService from './services/graphQlService';
 import Heading from './components/heading/heading';
 import ProductCatalogue from './components/productCatalogue/productCatalogue';
@@ -12,7 +12,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             categories: [],
-            activeCategory: {},
+            activeCategory: '',
             currencies: [],
             activeCurrency: '',
             cartList: []
@@ -22,13 +22,15 @@ export default class App extends React.Component {
 
     // categories
     _setActiveCategory = (category) => {
-        this.setState({activeCategory: category});
+        this.setState({activeCategory: category.name});
     };
 
     // currencies
     renderItemCurrency = (item) => {
         const arr = item.filter(elem => elem.currency.symbol === this.state.activeCurrency);
-        return [arr[0].currency.symbol, arr[0].amount];
+        if (arr[0] !== undefined) {
+            return [arr[0].currency.symbol, arr[0].amount.toFixed(2)];
+        }
     };
 
     _setActiveCurrency = (symbol) => {
@@ -36,8 +38,8 @@ export default class App extends React.Component {
     };
 
     totalItemsPrice = () => {
-        const res = this.state.cartList.reduce((a, b) => a + this.renderItemCurrency(b.prices)[1], 0);
-        return Math.round(res * 100) / 100;
+        const res = this.state.cartList.reduce((a, b) => a + parseFloat(this.renderItemCurrency(b.prices)[1]), 0);
+        return (Math.round(res * 100) / 100).toFixed(2);
     };
 
     // cart list
@@ -75,7 +77,16 @@ export default class App extends React.Component {
         return this.state.cartList.filter(elem => this._compareItems(itemData, elem)).length;
     };
 
-    _addItemToCart = (value) => {
+    _addItemToCart = (id, name, brand, prices, attributes, gallery, selectedAttributes) => {
+        const value = {
+            id: id,
+            name: name,
+            brand: brand,
+            prices: prices,
+            attributes: attributes,
+            gallery: gallery,
+            selectedAttributes: selectedAttributes
+        };
         this.setState({cartList: [value, ...this.state.cartList]});
     };
 
@@ -108,7 +119,7 @@ export default class App extends React.Component {
             .then(res => {
                 this.setState({
                     categories: res.categories,
-                    activeCategory: res.categories[0],
+                    activeCategory: res.categories[0].name,
                 });
             })
             .catch(res => console.log(res));
@@ -127,8 +138,8 @@ export default class App extends React.Component {
 
 
     componentDidMount() {
-        this._setCurrencies();
         this._setCategories();
+        this._setCurrencies();
     }
 
     render() {
@@ -160,7 +171,11 @@ export default class App extends React.Component {
                                    />
                                }/>
                         <Route path={'/cart'} element={<CartPage/>}/>
-                        <Route path={'item'} element={<ItemPage/>}>
+                        <Route path={'/item'}
+                               element={<ItemPage
+                                   renderItemCurrency={this.renderItemCurrency}
+                                   addItemToCart={this._addItemToCart}
+                               />}>
                             <Route path={':itemId'} element={<ItemPage/>}/>
                         </Route>
                     </Route>

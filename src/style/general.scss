@@ -12,7 +12,7 @@
 }
 
 .greenButton {
-  border: none;
+  border: 1px solid transparent;
   color: white;
   background-color: $main;
 }
@@ -29,6 +29,21 @@
   font-size: 14px;
 }
 
+.notInStockButton {
+  color: white;
+  background-color: #b7b7b7;
+  border: 0;
+  cursor: not-allowed;
+}
+
 .disable {
-  display: none;
+  display: none !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
