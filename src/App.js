@@ -1,7 +1,7 @@
 import './App.scss';
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import CartPage from './pages/cartPage';
+import CartPage from './pages/cartPage/cartPage';
 import ItemPage from './pages/itemPage/itemPage';
 import GraphQlService from './services/graphQlService';
 import Heading from './components/heading/heading';
@@ -170,7 +170,19 @@ export default class App extends React.Component {
                                        addItemToCart={this._addItemToCart}
                                    />
                                }/>
-                        <Route path={'/cart'} element={<CartPage/>}/>
+                        <Route path={'/cart'}
+                               element={
+                                   <CartPage
+                                       totalCartList={this.state.cartList}
+                                       cartList={this._filterCartListDuplicates()}
+                                       renderItemCurrency={this.renderItemCurrency}
+                                       increaseItemCount={this.increaseItemCount}
+                                       decreaseItemCount={this.decreaseItemCount}
+                                       getItemCount={this.getItemCount}
+                                       totalItemPrice={this.totalItemsPrice}
+                                       activeCurrency={this.state.activeCurrency}
+                                   />
+                               }/>
                         <Route path={'/item'}
                                element={<ItemPage
                                    renderItemCurrency={this.renderItemCurrency}

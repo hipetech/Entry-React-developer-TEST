@@ -28,33 +28,6 @@
   }
 }
 
-.cartItemCounter {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 8px;
-
-  button {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      width: 8px;
-      height: 8px;
-    }
-  }
-
-  p {
-    font-size: 18px;
-    font-weight: 500;
-  }
-}
-
 .cartItemImg {
   width: 121px;
   height: 100%;

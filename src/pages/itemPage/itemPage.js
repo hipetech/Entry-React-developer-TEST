@@ -70,8 +70,8 @@ ItemPageClassComponent.propTypes = {
     addItemToCart: PropTypes.func
 };
 
-// I know that function components are prohibited, but I decided to create a function wrapper
-// for class component to use usePrams hook inside it.
+// I understand that function components are prohibited, but I decided to create a function wrapper
+// for class component to use usePrams and useLocation hooks inside it.
 
 const ItemPage = (props) => <ItemPageClassComponent {...props} params={useParams()} location={useLocation()}/>;
 export default ItemPage;

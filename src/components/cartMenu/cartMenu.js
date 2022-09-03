@@ -2,6 +2,7 @@ import './cartMenu.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import CartItem from '../cartItem/cartItem';
+import {Link} from 'react-router-dom';
 
 export default class CartMenu extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class CartMenu extends React.Component {
 
     renderTotalItemPrice = () => {
         if (this.props.cartList.length) {
-            return this.props.renderItemCurrency(this.props.cartList[0].prices)[0] + this.props.totalItemPrice();
+            return this.props.activeCurrency + this.props.totalItemPrice();
         } else {
             return 'There is no items';
         }
@@ -68,10 +69,9 @@ export default class CartMenu extends React.Component {
                         </h3>
                     </div>
                     <div className="cartMenuButtons">
-                        <button className={'cartMenuButton transparentButton'}
-                                onClick={event => event.preventDefault()}>
+                        <Link className={'cartMenuButton transparentButton'} to={'/cart'} onClick={closeCartMenu}>
                             VIEW BAG
-                        </button>
+                        </Link>
                         <button type="submit" className={'cartMenuButton greenButton'}
                                 onClick={event => event.preventDefault()}>
                             CHECK OUT
@@ -83,8 +83,6 @@ export default class CartMenu extends React.Component {
     }
 }
 
-
-
 CartMenu.propTypes = {
     isOpenCartMenu: PropTypes.bool,
     closeCartMenu: PropTypes.func,
@@ -94,5 +92,6 @@ CartMenu.propTypes = {
     increaseItemCount: PropTypes.func,
     decreaseItemCount: PropTypes.func,
     getItemCount: PropTypes.func,
-    cartMenuRef: PropTypes.any
+    cartMenuRef: PropTypes.any,
+    activeCurrency: PropTypes.string
 };

@@ -1,10 +1,9 @@
 import './cartItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import plus from '../../resources/plus.svg';
-import minus from '../../resources/minus.svg';
 import ItemAttribute from '../itemAttribute/itemAttribute';
 import {Link} from 'react-router-dom';
+import CartItemCounter from '../cartItemCounter/cartItemCounter';
 
 export default class CartItem extends React.Component {
     constructor(props) {
@@ -45,7 +44,7 @@ export default class CartItem extends React.Component {
     };
 
     render() {
-        const {cartItemData, renderItemCurrency} = this.props;
+        const {cartItemData, renderItemCurrency, increaseItemCount, decreaseItemCount, getItemCount} = this.props;
 
         return (
             <>
@@ -67,19 +66,16 @@ export default class CartItem extends React.Component {
                             }
                         </div>
                     </div>
-                    <div className="cartItemCounter">
-                        <button className="counterButton" onClick={e => this.onClickIncreaseButton(e)}>
-                            <img src={plus} alt="Plus image"/>
-                        </button>
-                        <p>
-                            {
-                                this.props.getItemCount(cartItemData)
-                            }
-                        </p>
-                        <button className="counterButton" onClick={e => this.onClickDecreaseButton(e)}>
-                            <img src={minus} alt="Minus image"/>
-                        </button>
-                    </div>
+                    <CartItemCounter increaseItemCount={increaseItemCount}
+                                     decreaseItemCount={decreaseItemCount}
+                                     getItemCount={getItemCount}
+                                     cartItemData={cartItemData}
+                                     buttonWidth={'24px'}
+                                     buttonHeight={'24px'}
+                                     counterFontSize={'18px'}
+                                     imgWidth={'8px'}
+                                     imgHeight={'8px'}
+                    />
                     <div className="cartItemImg">
                         <img src={cartItemData.gallery[0]} alt={`${cartItemData.name} image`}/>
                     </div>

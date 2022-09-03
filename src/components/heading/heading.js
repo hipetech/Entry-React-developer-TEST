@@ -122,6 +122,7 @@ export default class Heading extends React.Component {
                                   decreaseItemCount={this.props.decreaseItemCount}
                                   getItemCount={this.props.getItemCount}
                                   cartMenuRef={this.cartMenuRef}
+                                  activeCurrency={this.props.activeCurrency}
                         />
                     </section>
                 </header>

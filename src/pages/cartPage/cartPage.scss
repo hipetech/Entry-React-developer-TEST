@@ -1,0 +1,32 @@
+.cartPageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 80px;
+  margin-bottom: 55px;
+}
+
+.cartPageTotalSection {
+  h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 8px;
+  }
+
+  span {
+    font-weight: 700;
+  }
+
+  display: grid;
+  grid-template-columns: repeat(2, 100px);
+  column-gap: 5px;
+  margin-top: 32px;
+}
+
+.cartPageSubmitButton {
+  width: 279px;
+  height: 43px;
+  margin-top: 16px;
+  margin-bottom: 274px;
+  font-size: 14px;
+  font-weight: 600;
+}
