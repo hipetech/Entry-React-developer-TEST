@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ItemAttribute from '../itemAttribute/itemAttribute';
 import CartItemCounter from '../cartItemCounter/cartItemCounter';
 import CartPageItemGallerySlider from '../cartPageItemGallerySlider/cartPageItemGallerySlider';
+import {Link} from 'react-router-dom';
 
 export default class CartPageItem extends React.Component {
     constructor(props) {
@@ -43,16 +44,18 @@ export default class CartPageItem extends React.Component {
             <>
                 <section className="cartPageItemSection">
                     <div className="cartPageItemInfo">
-                        <h2 className={'cartPageItemBrandCaption'}>
-                            {
-                                cartItemData.brand
-                            }
-                        </h2>
-                        <h2 className="cartPageItemNameCaption">
-                            {
-                                cartItemData.name
-                            }
-                        </h2>
+                        <Link to={`/item/${cartItemData.id}`}>
+                            <h2 className={'cartPageItemBrandCaption'}>
+                                {
+                                    cartItemData.brand
+                                }
+                            </h2>
+                            <h2 className="cartPageItemNameCaption">
+                                {
+                                    cartItemData.name
+                                }
+                            </h2>
+                        </Link>
                         <p className="cartPageItemPrice">
                             {
                                 renderItemCurrency(cartItemData.prices)

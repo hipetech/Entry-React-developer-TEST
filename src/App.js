@@ -6,11 +6,14 @@ import ItemPage from './pages/itemPage/itemPage';
 import GraphQlService from './services/graphQlService';
 import Heading from './components/heading/heading';
 import ProductCatalogue from './components/productCatalogue/productCatalogue';
+import ErrorBoundary from './components/errorBoundary/errorBoundary';
+import FetchDataError from './components/fetchDataError/fetchDataError';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isError: false,
             categories: [],
             activeCategory: '',
             currencies: [],
@@ -19,6 +22,10 @@ export default class App extends React.Component {
         };
         this.service = new GraphQlService();
     }
+
+    _setIsError = () => {
+        this.setState({error: false});
+    };
 
     // categories
     _setActiveCategory = (category) => {
@@ -122,7 +129,7 @@ export default class App extends React.Component {
                     activeCategory: res.categories[0].name,
                 });
             })
-            .catch(res => console.log(res));
+            .catch(() => this._setIsError);
     };
 
     _setCurrencies = () => {
@@ -133,7 +140,7 @@ export default class App extends React.Component {
                     activeCurrency: res.currencies[0].symbol,
                 });
             })
-            .catch(res => console.log(res));
+            .catch(() => this._setIsError);
     };
 
 
@@ -143,52 +150,69 @@ export default class App extends React.Component {
     }
 
     render() {
+        if (this.state.isError) {
+            return <FetchDataError />;
+        }
         return (
             <div className="contentBox">
                 <Routes>
                     <Route path={'/'}
                            element={
-                               <Heading
-                                   categories={this.state.categories}
-                                   currencies={this.state.currencies}
-                                   activeCurrency={this.state.activeCurrency}
-                                   setActiveCategory={this._setActiveCategory}
-                                   setActiveCurrency={this._setActiveCurrency}
-                                   cartList={this._filterCartListDuplicates()}
-                                   renderItemCurrency={this.renderItemCurrency}
-                                   totalItemPrice={this.totalItemsPrice}
-                                   increaseItemCount={this.increaseItemCount}
-                                   decreaseItemCount={this.decreaseItemCount}
-                                   getItemCount={this.getItemCount}
-                               />
-                           }>
-                        <Route path={'/'}
-                               element={
-                                   <ProductCatalogue
-                                       activeCategory={this.state.activeCategory}
-                                       renderItemCurrency={this.renderItemCurrency}
-                                       addItemToCart={this._addItemToCart}
-                                   />
-                               }/>
-                        <Route path={'/cart'}
-                               element={
-                                   <CartPage
-                                       totalCartList={this.state.cartList}
+                               <ErrorBoundary>
+                                   <Heading
+                                       categories={this.state.categories}
+                                       currencies={this.state.currencies}
+                                       activeCurrency={this.state.activeCurrency}
+                                       setActiveCategory={this._setActiveCategory}
+                                       setActiveCurrency={this._setActiveCurrency}
                                        cartList={this._filterCartListDuplicates()}
                                        renderItemCurrency={this.renderItemCurrency}
+                                       totalItemPrice={this.totalItemsPrice}
                                        increaseItemCount={this.increaseItemCount}
                                        decreaseItemCount={this.decreaseItemCount}
                                        getItemCount={this.getItemCount}
-                                       totalItemPrice={this.totalItemsPrice}
-                                       activeCurrency={this.state.activeCurrency}
                                    />
+                               </ErrorBoundary>
+                           }>
+                        <Route path={'/'}
+                               element={
+                                   <ErrorBoundary>
+                                       <ProductCatalogue
+                                           activeCategory={this.state.activeCategory}
+                                           renderItemCurrency={this.renderItemCurrency}
+                                           addItemToCart={this._addItemToCart}
+                                       />
+                                   </ErrorBoundary>
+                               }/>
+                        <Route path={'/cart'}
+                               element={
+                                   <ErrorBoundary>
+                                       <CartPage
+                                           totalCartList={this.state.cartList}
+                                           cartList={this._filterCartListDuplicates()}
+                                           renderItemCurrency={this.renderItemCurrency}
+                                           increaseItemCount={this.increaseItemCount}
+                                           decreaseItemCount={this.decreaseItemCount}
+                                           getItemCount={this.getItemCount}
+                                           totalItemPrice={this.totalItemsPrice}
+                                           activeCurrency={this.state.activeCurrency}
+                                       />
+                                   </ErrorBoundary>
                                }/>
                         <Route path={'/item'}
-                               element={<ItemPage
-                                   renderItemCurrency={this.renderItemCurrency}
-                                   addItemToCart={this._addItemToCart}
-                               />}>
-                            <Route path={':itemId'} element={<ItemPage/>}/>
+                               element={
+                                   <ErrorBoundary>
+                                       <ItemPage
+                                           renderItemCurrency={this.renderItemCurrency}
+                                           addItemToCart={this._addItemToCart}
+                                       />
+                                   </ErrorBoundary>
+                               }>
+                            <Route path={':itemId'}
+                                   element={
+                                       <ErrorBoundary>
+                                           <ItemPage/>
+                                       </ErrorBoundary>}/>
                         </Route>
                     </Route>
                 </Routes>

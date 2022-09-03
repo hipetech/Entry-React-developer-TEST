@@ -6,15 +6,21 @@ import './itemPage.scss';
 import ItemPageImageGallery from '../../components/itemPageImageGallery/itemPageImageGallery';
 import ItemPageActiveImage from '../../components/itemPageActiveImage/itemPageActiveImage';
 import ItemPageItemInfo from '../../components/itemPageItemInfo/itemPageItemInfo';
+import FetchDataError from '../../components/fetchDataError/fetchDataError';
 
 class ItemPageClassComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isError: false,
             productData: {gallery: [], attributes: [], prices: []},
             activeImage: '',
         };
     }
+
+    _setIsError = () => {
+        this.setState({isError: false});
+    };
 
     setActiveImage = (src) => {
         this.setState({
@@ -28,7 +34,8 @@ class ItemPageClassComponent extends React.Component {
             .then(res => this.setState({
                 productData: res['product'],
                 activeImage: res['product']['gallery'][0]
-            }));
+            }))
+            .catch(() => this._setIsError());
     };
 
     componentDidMount() {
@@ -42,6 +49,10 @@ class ItemPageClassComponent extends React.Component {
     }
 
     render() {
+        if (this.state.isError) {
+            return <FetchDataError/>;
+        }
+
         return (
             <>
                 <section className="itemPageSection">

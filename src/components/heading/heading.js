@@ -29,7 +29,7 @@ export default class Heading extends React.Component {
         this.setState({selectedIndex: index});
     };
 
-    _toggleCurrencyMenu = () => {
+    toggleCurrencyMenu = () => {
         this.setState({isOpenCurrencyMenu: !this.state.isOpenCurrencyMenu});
     };
 
@@ -89,7 +89,7 @@ export default class Heading extends React.Component {
                     </nav>
                     <img src={Logo} alt="Logo" className="logo"/>
                     <section className="actions">
-                        <button className={'headingButtons currency'} onClick={this._toggleCurrencyMenu}
+                        <button className={'headingButtons currency'} onClick={this.toggleCurrencyMenu}
                                 ref={this.currencyRef}>
                             <span className="currencyLogo">
                                 <h3>
@@ -102,6 +102,7 @@ export default class Heading extends React.Component {
                         <CurrencyMenu currencies={this.props.currencies}
                                       isOpenCurrencyMenu={this.state.isOpenCurrencyMenu}
                                       setActiveCurrency={this.props.setActiveCurrency}
+                                      toggleCurrencyMenu={this.toggleCurrencyMenu}
                         />
                         <button className={'headingButtons cart'} onClick={this._toggleCartMenu} ref={this.cartButtonRef}>
                             <img src={Cart} alt="Cart"/>

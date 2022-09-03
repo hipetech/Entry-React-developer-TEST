@@ -3,15 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from '../itemCard/itemCard';
 import GraphQlService from '../../services/graphQlService';
+import FetchDataError from '../fetchDataError/fetchDataError';
 
 export default class ProductCatalogue extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isError: false,
             products: []
         };
         this.service = new GraphQlService();
     }
+
+    _setIsError = () => {
+        this.setState({error: false});
+    };
 
     _nameFirstLetterToUpperCase = () => {
         const {activeCategory} = this.props;
@@ -33,7 +39,7 @@ export default class ProductCatalogue extends React.Component {
     _setProducts = () => {
         this.service.getProductsByCategory(this.props.activeCategory)
             .then(res => this.setState({products: res.category.products}))
-            .catch(console.log);
+            .catch(() => this._setIsError);
     };
 
     componentDidMount() {
@@ -47,6 +53,9 @@ export default class ProductCatalogue extends React.Component {
     }
 
     render() {
+        if (this.state.isError) {
+            return <FetchDataError />;
+        }
         return (
             <>
                 <section className="productCatalogueSection">

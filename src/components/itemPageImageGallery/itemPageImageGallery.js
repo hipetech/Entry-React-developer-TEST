@@ -12,7 +12,14 @@ export default class ItemPageImageGallery extends React.Component {
         return gallery.map((elem, index) => {
             return (
                 <div key={index} className={'galleryImagesImgBox'}
-                     onClick={() => setActiveImage(elem)}>
+                     onClick={() => setActiveImage(elem)}
+                     onKeyDown={(e) => {
+                         if (e.key === 'Enter') {
+                             setActiveImage(elem);
+                         }
+                     }}
+                     tabIndex={index + 1}
+                >
                     <img src={elem} alt={`Gallery image ${index + 1}`}/>
                 </div>
             );

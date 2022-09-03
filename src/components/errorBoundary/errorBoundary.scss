@@ -1,0 +1,31 @@
+@import "../../style/variables";
+
+.errorBoundarySection {
+  width: 450px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $hoverColor;
+  margin: 50px auto;
+
+  img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.errorBoundaryButtonSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 140px;
+    height: 43px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}

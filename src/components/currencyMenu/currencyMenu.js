@@ -10,9 +10,17 @@ export default class CurrencyMenu extends React.Component {
     renderCurrencies = () => {
         return this.props.currencies.map((element, index) => {
             return (
-                <li className={'currencyItem'} key={index} onClick={() => {
-                    this.props.setActiveCurrency(element.symbol);
-                }}>
+                <li className={'currencyItem'} key={index} tabIndex={index + 1}
+                    onClick={() => {
+                        this.props.setActiveCurrency(element.symbol);
+                    }}
+                    onKeyDown={(e => {
+                        if (e.key === 'Enter') {
+                            this.props.setActiveCurrency(element.symbol);
+                            this.props.toggleCurrencyMenu();
+                        }
+                    })}
+                >
                     <h3>{element.symbol} {element.label}</h3>
                 </li>
             );
@@ -22,7 +30,7 @@ export default class CurrencyMenu extends React.Component {
     render() {
         return (
             <>
-                <ul className={`currencyMenu ${this.props.isOpenCurrencyMenu ? '': 'disable'}`}>
+                <ul className={`currencyMenu ${this.props.isOpenCurrencyMenu ? '' : 'disable'}`}>
                     {
                         this.renderCurrencies()
                     }
@@ -35,5 +43,6 @@ export default class CurrencyMenu extends React.Component {
 CurrencyMenu.propTypes = {
     currencies: PropTypes.array,
     isOpenCurrencyMenu: PropTypes.bool,
-    setActiveCurrency: PropTypes.func
+    setActiveCurrency: PropTypes.func,
+    toggleCurrencyMenu: PropTypes.func
 };

@@ -1,0 +1,28 @@
+@import "../../style/variables";
+
+.fetchDataSection {
+  width: 400px;
+  padding: 15px;
+  background-color: $hoverColor;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 50px auto;
+
+  img {
+    width: 150px;
+    height: 150px;
+  }
+
+  h2 {
+    margin: 0 0 10px;
+  }
+}
+
+.fetchDataCaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

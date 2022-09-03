@@ -28,9 +28,12 @@ export default class CartPage extends React.Component {
                         CART
                     </h2>
                     <hr className={'cartPageSeparation'}/>
-                    <section className="cartItemsSection">
+                    <section className={'cartItemsSection'}>
                         {
-                            this.renderCartList()
+                            totalCartList.length !== 0 ? this.renderCartList() :
+                                <div><h2>Cart is empty</h2>
+                                    <hr className={'cartPageSeparation'}/>
+                                </div>
                         }
                     </section>
                     <section className="cartPageTotalSection">
@@ -64,7 +67,8 @@ export default class CartPage extends React.Component {
                                 }
                             </span>
                         </h3>
-                        <button className={'cartPageSubmitButton greenButton'} onClick={event => event.preventDefault()}>
+                        <button className={'cartPageSubmitButton greenButton'}
+                                onClick={event => event.preventDefault()}>
                             ORDER
                         </button>
                     </section>
