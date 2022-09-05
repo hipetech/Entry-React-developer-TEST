@@ -68,7 +68,7 @@ export default class CartPage extends React.Component {
                             </span>
                         </h3>
                         <button className={'cartPageSubmitButton greenButton'}
-                                onClick={event => event.preventDefault()}>
+                                onClick={e => e.preventDefault()}>
                             ORDER
                         </button>
                     </section>

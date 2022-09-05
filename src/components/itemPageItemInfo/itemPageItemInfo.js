@@ -12,7 +12,7 @@ export default class ItemPageItemInfo extends React.Component {
         };
     }
 
-    setAttributeValue = (valueIndex, value) => {
+    _setAttributeValue = (valueIndex, value) => {
         this.setState({
             attributesValues: this.state.attributesValues.map((elem, index) => {
                 if (index === valueIndex) {
@@ -23,7 +23,7 @@ export default class ItemPageItemInfo extends React.Component {
         });
     };
 
-    validateAttributeFormValues = () => {
+    _validateAttributeFormValues = () => {
         let isCorrect = true;
         if (this.props.productData.inStock) {
             this.state.attributesValues.forEach(elem => {
@@ -37,7 +37,7 @@ export default class ItemPageItemInfo extends React.Component {
         return isCorrect;
     };
 
-    setAttributes = () => {
+    _setAttributes = () => {
         const {productData} = this.props;
 
         let arr = [];
@@ -50,14 +50,13 @@ export default class ItemPageItemInfo extends React.Component {
         return arr;
     };
 
-    submitData = (e) => {
+    _submitData = (e) => {
         e.preventDefault();
-
         if (this.props.productData.inStock) {
             const {productData, addItemToCart} = this.props;
             const {id, name, brand, prices, attributes, gallery} = productData;
 
-            if (this.validateAttributeFormValues()) {
+            if (this._validateAttributeFormValues()) {
                 addItemToCart(
                     id,
                     name,
@@ -65,7 +64,7 @@ export default class ItemPageItemInfo extends React.Component {
                     prices,
                     attributes,
                     gallery,
-                    this.setAttributes()
+                    this._setAttributes()
                 );
             }
         }
@@ -76,7 +75,7 @@ export default class ItemPageItemInfo extends React.Component {
         const {id, inStock, attributes} = productData;
         return attributes.map((elem, index) => {
             return <ItemAttribute key={elem.id}
-                                  setAttributeValue={(value) => this.setAttributeValue(index, value)}
+                                  setAttributeValue={(value) => this._setAttributeValue(index, value)}
                                   attributeData={elem}
                                   itemId={id}
                                   labelFontSize={'18px'}
@@ -107,7 +106,7 @@ export default class ItemPageItemInfo extends React.Component {
         const {brand, name, attributes, prices, inStock, description} = productData;
         return (
             <>
-                <form className="itemPageItemInfoForm" onSubmit={this.submitData}>
+                <form className="itemPageItemInfoForm" onSubmit={this._submitData}>
                     <h2 className={'itemPageItemBrand'}>
                         {
                             brand

@@ -30,7 +30,7 @@ export default class App extends React.Component {
     };
 
     // categories
-    _setActiveCategory = (category) => {
+    setActiveCategory = (category) => {
         this.setState({activeCategory: category.name});
     };
 
@@ -42,7 +42,7 @@ export default class App extends React.Component {
         }
     };
 
-    _setActiveCurrency = (symbol) => {
+    setActiveCurrency = (symbol) => {
         this.setState({activeCurrency: symbol});
         this.localStorageService.setActiveCurrency(symbol);
     };
@@ -87,7 +87,7 @@ export default class App extends React.Component {
         return this.state.cartList.filter(elem => this._compareItems(itemData, elem)).length;
     };
 
-    _addItemToCart = (id, name, brand, prices, attributes, gallery, selectedAttributes) => {
+    addItemToCart = (id, name, brand, prices, attributes, gallery, selectedAttributes) => {
         const value = {
             id: id,
             name: name,
@@ -175,8 +175,8 @@ export default class App extends React.Component {
                                        categories={this.state.categories}
                                        currencies={this.state.currencies}
                                        activeCurrency={this.state.activeCurrency}
-                                       setActiveCategory={this._setActiveCategory}
-                                       setActiveCurrency={this._setActiveCurrency}
+                                       setActiveCategory={this.setActiveCategory}
+                                       setActiveCurrency={this.setActiveCurrency}
                                        cartList={this._filterCartListDuplicates()}
                                        renderItemCurrency={this.renderItemCurrency}
                                        totalItemPrice={this.totalItemsPrice}
@@ -192,7 +192,7 @@ export default class App extends React.Component {
                                        <ProductCatalogue
                                            activeCategory={this.state.activeCategory}
                                            renderItemCurrency={this.renderItemCurrency}
-                                           addItemToCart={this._addItemToCart}
+                                           addItemToCart={this.addItemToCart}
                                        />
                                    </ErrorBoundary>
                                }/>
@@ -216,7 +216,7 @@ export default class App extends React.Component {
                                    <ErrorBoundary>
                                        <ItemPage
                                            renderItemCurrency={this.renderItemCurrency}
-                                           addItemToCart={this._addItemToCart}
+                                           addItemToCart={this.addItemToCart}
                                        />
                                    </ErrorBoundary>
                                }>

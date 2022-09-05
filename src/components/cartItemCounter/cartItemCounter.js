@@ -9,12 +9,12 @@ export default class CartItemCounter extends React.Component {
         super(props);
     }
 
-    onClickIncreaseButton = (e) => {
+    _onClickIncreaseButton = (e) => {
         e.preventDefault();
         this.props.increaseItemCount(this.props.cartItemData);
     };
 
-    onClickDecreaseButton = (e) => {
+    _onClickDecreaseButton = (e) => {
         e.preventDefault();
         this.props.decreaseItemCount(this.props.cartItemData);
     };
@@ -40,7 +40,7 @@ export default class CartItemCounter extends React.Component {
             <>
                 <section className="cartItemCounterSection">
                     <button className="counterButton"
-                            onClick={e => this.onClickIncreaseButton(e)}
+                            onClick={e => this._onClickIncreaseButton(e)}
                             style={btnStyle}
                     >
                         <img src={plus} style={imgStyle} alt="Plus image"/>
@@ -51,7 +51,7 @@ export default class CartItemCounter extends React.Component {
                         }
                     </p>
                     <button className="counterButton"
-                            onClick={e => this.onClickDecreaseButton(e)}
+                            onClick={e => this._onClickDecreaseButton(e)}
                             style={btnStyle}
                     >
                         <img src={minus} style={imgStyle} alt="Minus image"/>

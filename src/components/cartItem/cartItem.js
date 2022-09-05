@@ -10,15 +10,6 @@ export default class CartItem extends React.Component {
         super(props);
     }
 
-    onClickIncreaseButton = (e) => {
-        e.preventDefault();
-        this.props.increaseItemCount(this.props.cartItemData);
-    };
-
-    onClickDecreaseButton = (e) => {
-        e.preventDefault();
-        this.props.decreaseItemCount(this.props.cartItemData);
-    };
 
     renderAttributes = () => {
         const {cartItemData} = this.props;

@@ -9,7 +9,7 @@ export default class ItemCard extends React.Component {
         super(prop);
     }
 
-    setDefaultAttributes = () => {
+    _setDefaultAttributes = () => {
         const {itemData} = this.props;
         let arr = [];
         itemData.attributes.forEach(elem => {
@@ -21,7 +21,7 @@ export default class ItemCard extends React.Component {
         return arr;
     };
 
-    addItemToCartOnClick = () => {
+    _addItemToCartOnClick = () => {
         const {itemData, addItemToCart} = this.props;
         const {id, name, brand, prices, attributes, gallery} = itemData;
 
@@ -32,7 +32,7 @@ export default class ItemCard extends React.Component {
             prices,
             attributes,
             gallery,
-            this.setDefaultAttributes()
+            this._setDefaultAttributes()
         );
     };
 
@@ -62,7 +62,7 @@ export default class ItemCard extends React.Component {
                     </h5>
                 </Link>
                 <button className={`itemCardButton ${itemData.inStock ? '': 'disable'}`}
-                        onClick={this.addItemToCartOnClick}>
+                        onClick={this._addItemToCartOnClick}>
                     <img src={EmptyCartWhite} alt="White card image"/>
                 </button>
             </section>

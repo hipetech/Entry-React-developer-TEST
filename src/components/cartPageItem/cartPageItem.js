@@ -37,8 +37,6 @@ export default class CartPageItem extends React.Component {
     };
 
     render() {
-        console.log(this.props.cartItemData);
-
         const {cartItemData, renderItemCurrency, increaseItemCount, decreaseItemCount, getItemCount} = this.props;
         return (
             <>

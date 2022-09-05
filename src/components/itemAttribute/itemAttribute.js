@@ -26,7 +26,7 @@ export default class ItemAttribute extends React.Component {
         return elem.value === this.state.activeValue;
     };
 
-    checkBoxElem = (elem, style, selector, activeSelector) => {
+    _getCheckBoxElem = (elem, style, selector, activeSelector) => {
         const {attributeData, itemId, disabled} = this.props;
         const condition = this._setCheckedValue(elem);
 
@@ -49,7 +49,7 @@ export default class ItemAttribute extends React.Component {
         );
     };
 
-    _renderTextAttributes = () => {
+    renderTextAttributes = () => {
         const {attributeData, textAttributeItemWidth, textAttributeItemHeight, textAttributeItemFontSize} = this.props;
         const style = {
             minWidth: textAttributeItemWidth,
@@ -58,11 +58,11 @@ export default class ItemAttribute extends React.Component {
         };
 
         return attributeData.items.map((elem) => {
-            return this.checkBoxElem(elem, style, 'typeText', 'typeTextActive');
+            return this._getCheckBoxElem(elem, style, 'typeText', 'typeTextActive');
         });
     };
 
-    _renderColorAttributes = () => {
+    renderColorAttributes = () => {
         const {attributeData, colorAttributeItemWidth, colorAttributeItemHeight} = this.props;
         return attributeData.items.map((elem) => {
             const style = {
@@ -70,16 +70,16 @@ export default class ItemAttribute extends React.Component {
                 width: colorAttributeItemWidth,
                 height: colorAttributeItemHeight
             };
-            return this.checkBoxElem(elem, style, 'typeColor', 'typeColorActive');
+            return this._getCheckBoxElem(elem, style, 'typeColor', 'typeColorActive');
         });
     };
 
     renderAttributes = () => {
         switch (this.props.attributeData.type) {
             case 'text':
-                return this._renderTextAttributes();
+                return this.renderTextAttributes();
             case 'swatch':
-                return this._renderColorAttributes();
+                return this.renderColorAttributes();
         }
     };
 

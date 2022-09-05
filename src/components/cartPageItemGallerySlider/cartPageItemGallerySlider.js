@@ -13,7 +13,7 @@ export default class CartPageItemGallerySlider extends React.Component {
         };
     }
 
-    increaseRight = () => {
+    _increaseRight = () => {
         const {gallery} = this.props;
         const {index} = this.state;
 
@@ -30,7 +30,7 @@ export default class CartPageItemGallerySlider extends React.Component {
         }
     };
 
-    decreaseLeft = () => {
+    _decreaseLeft = () => {
         const {gallery} = this.props;
         const {index} = this.state;
 
@@ -72,15 +72,15 @@ export default class CartPageItemGallerySlider extends React.Component {
                         }
                     </div>
                     <div className={`cartPageItemGalleryArrowButtons ${gallery.length > 1 ? '' : 'disable'}`}>
-                        <button className="arrowButton" onClick={event => {
-                            event.preventDefault();
-                            this.decreaseLeft();
+                        <button className="arrowButton" onClick={e => {
+                            e.preventDefault();
+                            this._decreaseLeft();
                         }}>
                             <img src={arrowLeft} alt="Arrow left"/>
                         </button>
-                        <button className="arrowButton" onClick={event => {
-                            event.preventDefault();
-                            this.increaseRight();
+                        <button className="arrowButton" onClick={e => {
+                            e.preventDefault();
+                            this._increaseRight();
                         }}>
                             <img src={arrowRight} alt="Arrow right"/>
                         </button>

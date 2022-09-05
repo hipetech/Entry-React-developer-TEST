@@ -8,16 +8,20 @@ export default class HeadingCategory extends React.Component {
         super(props);
     }
 
+    _setCategory = () => {
+        const {setSelected, setActiveCategory, index, category} = this.props;
+
+        setSelected(index);
+        setActiveCategory(category);
+    };
+
     render() {
-        const {category, index, selectedIndex, setSelected, setActiveCategory} = this.props;
+        const {category, index, selectedIndex} = this.props;
 
         return (
             <Link to={'/'}>
                 <button className={`category ${index === selectedIndex ? 'active' : ''}`}
-                        onClick={() => {
-                            setSelected(index);
-                            setActiveCategory(category);
-                        }}>
+                        onClick={this._setCategory}>
                     {
                         category.name.toUpperCase()
                     }

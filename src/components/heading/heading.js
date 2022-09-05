@@ -29,17 +29,19 @@ export default class Heading extends React.Component {
         this.setState({selectedIndex: index});
     };
 
-    toggleCurrencyMenu = () => {
+    _toggleCurrencyMenu = () => {
         this.setState({isOpenCurrencyMenu: !this.state.isOpenCurrencyMenu});
     };
 
     renderCategories = () => {
-        return this.props.categories.map((elem, index) => <HeadingCategory category={elem}
-                                                                           key={index}
-                                                                           index={index}
-                                                                           selectedIndex={this.state.selectedIndex}
-                                                                           setSelected={this._setSelected}
-                                                                           setActiveCategory={this.props.setActiveCategory}/>);
+        return this.props.categories.map((elem, index) => {
+            return <HeadingCategory category={elem}
+                                    key={index}
+                                    index={index}
+                                    selectedIndex={this.state.selectedIndex}
+                                    setSelected={this._setSelected}
+                                    setActiveCategory={this.props.setActiveCategory}/>;
+        });
     };
 
     _toggleCartMenu = () => {
@@ -89,7 +91,7 @@ export default class Heading extends React.Component {
                     </nav>
                     <img src={Logo} alt="Logo" className="logo"/>
                     <section className="actions">
-                        <button className={'headingButtons currency'} onClick={this.toggleCurrencyMenu}
+                        <button className={'headingButtons currency'} onClick={this._toggleCurrencyMenu}
                                 ref={this.currencyRef}>
                             <span className="currencyLogo">
                                 <h3>
@@ -102,11 +104,12 @@ export default class Heading extends React.Component {
                         <CurrencyMenu currencies={this.props.currencies}
                                       isOpenCurrencyMenu={this.state.isOpenCurrencyMenu}
                                       setActiveCurrency={this.props.setActiveCurrency}
-                                      toggleCurrencyMenu={this.toggleCurrencyMenu}
+                                      toggleCurrencyMenu={this._toggleCurrencyMenu}
                         />
-                        <button className={'headingButtons cart'} onClick={this._toggleCartMenu} ref={this.cartButtonRef}>
+                        <button className={'headingButtons cart'} onClick={this._toggleCartMenu}
+                                ref={this.cartButtonRef}>
                             <img src={Cart} alt="Cart"/>
-                            <span className={`cartButtonCounter ${this.props.cartList.length < 1 ? 'disable': ''}`}>
+                            <span className={`cartButtonCounter ${this.props.cartList.length < 1 ? 'disable' : ''}`}>
                                 <p>
                                     {this.props.cartList.length}
                                 </p>
@@ -127,7 +130,7 @@ export default class Heading extends React.Component {
                         />
                     </section>
                 </header>
-                <Outlet />
+                <Outlet/>
             </>
         );
     }
