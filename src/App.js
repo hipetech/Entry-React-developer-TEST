@@ -8,6 +8,7 @@ import Heading from './components/heading/heading';
 import ProductCatalogue from './components/productCatalogue/productCatalogue';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import FetchDataError from './components/fetchDataError/fetchDataError';
+import LocalStorageService from './services/localStorageService';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -20,7 +21,8 @@ export default class App extends React.Component {
             activeCurrency: '',
             cartList: []
         };
-        this.service = new GraphQlService();
+        this.graphQLService = new GraphQlService();
+        this.localStorageService = new LocalStorageService();
     }
 
     _setIsError = () => {
@@ -42,6 +44,7 @@ export default class App extends React.Component {
 
     _setActiveCurrency = (symbol) => {
         this.setState({activeCurrency: symbol});
+        this.localStorageService.setActiveCurrency(symbol);
     };
 
     totalItemsPrice = () => {
@@ -94,7 +97,10 @@ export default class App extends React.Component {
             gallery: gallery,
             selectedAttributes: selectedAttributes
         };
-        this.setState({cartList: [value, ...this.state.cartList]});
+        const res = [value, ...this.state.cartList];
+
+        this.setState({cartList: res});
+        this.localStorageService.setCartList(res);
     };
 
     _getItemAttributesSignature = (elem) => {
@@ -122,7 +128,7 @@ export default class App extends React.Component {
 
     // client requests
     _setCategories = () => {
-        this.service.getCategories()
+        this.graphQLService.getCategories()
             .then(res => {
                 this.setState({
                     categories: res.categories,
@@ -132,26 +138,32 @@ export default class App extends React.Component {
             .catch(() => this._setIsError);
     };
 
-    _setCurrencies = () => {
-        this.service.getCurrencies()
+    _setCurrencies = (afterSetStateFinisher = () => {}) => {
+        const localStorageActiveCurrency = this.localStorageService.getActiveCurrency();
+
+        this.graphQLService.getCurrencies()
             .then(res => {
                 this.setState({
                     currencies: res.currencies,
-                    activeCurrency: res.currencies[0].symbol,
-                });
+                    activeCurrency: localStorageActiveCurrency === null ? res.currencies[0].symbol : localStorageActiveCurrency
+                }, afterSetStateFinisher);
             })
             .catch(() => this._setIsError);
     };
 
+    _setCartList = () => {
+        const localStorageCartList = this.localStorageService.getCartList();
+        this.setState({cartList: localStorageCartList});
+    };
 
     componentDidMount() {
         this._setCategories();
-        this._setCurrencies();
+        this._setCurrencies(this._setCartList);
     }
 
     render() {
         if (this.state.isError) {
-            return <FetchDataError />;
+            return <FetchDataError/>;
         }
         return (
             <div className="contentBox">
