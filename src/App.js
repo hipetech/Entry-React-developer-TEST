@@ -178,6 +178,7 @@ export default class App extends React.Component {
                                        setActiveCategory={this.setActiveCategory}
                                        setActiveCurrency={this.setActiveCurrency}
                                        cartList={this._filterCartListDuplicates()}
+                                       cartListLength={this.state.cartList.length}
                                        renderItemCurrency={this.renderItemCurrency}
                                        totalItemPrice={this.totalItemsPrice}
                                        increaseItemCount={this.increaseItemCount}

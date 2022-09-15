@@ -109,9 +109,9 @@ export default class Heading extends React.Component {
                         <button className={'headingButtons cart'} onClick={this._toggleCartMenu}
                                 ref={this.cartButtonRef}>
                             <img src={Cart} alt="Cart"/>
-                            <span className={`cartButtonCounter ${this.props.cartList.length < 1 ? 'disable' : ''}`}>
+                            <span className={`cartButtonCounter ${this.props.cartListLength < 1 ? 'disable' : ''}`}>
                                 <p>
-                                    {this.props.cartList.length}
+                                    {this.props.cartListLength}
                                 </p>
                             </span>
                         </button>
@@ -143,6 +143,7 @@ Heading.propTypes = {
     activeCurrency: PropTypes.string,
     setActiveCurrency: PropTypes.func,
     cartList: PropTypes.array,
+    cartListLength: PropTypes.number,
     renderItemCurrency: PropTypes.func,
     totalItemPrice: PropTypes.func,
     increaseItemCount: PropTypes.func,
