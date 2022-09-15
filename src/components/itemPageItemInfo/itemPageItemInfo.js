@@ -93,16 +93,22 @@ export default class ItemPageItemInfo extends React.Component {
         });
     };
 
+    renderDescription = () => {
+        document.querySelector(".itemPageItemDescription").innerHTML = this.props.productData.description;
+    };
+
     componentDidUpdate(prevProps) {
         if (prevProps.productData.attributes !== this.props.productData.attributes) {
             const {attributes} = this.props.productData;
             this.setState({attributesValues: new Array(attributes.length).fill('')});
+            this.renderDescription();
         }
     }
 
     render() {
         const {productData, renderItemCurrency} = this.props;
-        const {brand, name, attributes, prices, inStock, description} = productData;
+        const {brand, name, attributes, prices, inStock} = productData;
+
         return (
             <>
                 <form className="itemPageItemInfoForm" onSubmit={this._submitData}>
@@ -142,8 +148,7 @@ export default class ItemPageItemInfo extends React.Component {
                             }
                         </button>
                     </div>
-                    <div className={'itemPageItemDescription'}
-                         dangerouslySetInnerHTML={{__html: description}}>
+                    <div className={'itemPageItemDescription'}>
                     </div>
                 </form>
             </>
