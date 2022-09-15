@@ -6,11 +6,6 @@ import {Link} from 'react-router-dom';
 import CartItemCounter from '../cartItemCounter/cartItemCounter';
 
 export default class CartItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-
     renderAttributes = () => {
         const {cartItemData} = this.props;
         const {id} = cartItemData;
@@ -68,7 +63,7 @@ export default class CartItem extends React.Component {
                                      imgHeight={'8px'}
                     />
                     <div className="cartItemImg">
-                        <img src={cartItemData.gallery[0]} alt={`${cartItemData.name} image`}/>
+                        <img src={cartItemData.gallery[0]} alt={`${cartItemData.name}`}/>
                     </div>
                 </section>
             </>

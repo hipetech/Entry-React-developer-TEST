@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import './itemPageImageGallery.scss';
 
 export default class ItemPageImageGallery extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderGalleryImages = () => {
         const {gallery, setActiveImage} = this.props;
         return gallery.map((elem, index) => {
@@ -20,7 +16,7 @@ export default class ItemPageImageGallery extends React.Component {
                      }}
                      tabIndex={index + 1}
                 >
-                    <img src={elem} alt={`Gallery image ${index + 1}`}/>
+                    <img src={elem} alt={`Gallery ${index + 1}`}/>
                 </div>
             );
         });

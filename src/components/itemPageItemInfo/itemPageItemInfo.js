@@ -25,7 +25,7 @@ export default class ItemPageItemInfo extends React.Component {
 
     _validateAttributeFormValues = () => {
         let isCorrect = true;
-        if (this.props.productData.inStock) {
+        if (this.props.productData["inStock"]) {
             this.state.attributesValues.forEach(elem => {
                 if (elem === '') {
                     isCorrect = false;
@@ -52,7 +52,7 @@ export default class ItemPageItemInfo extends React.Component {
 
     _submitData = (e) => {
         e.preventDefault();
-        if (this.props.productData.inStock) {
+        if (this.props.productData["inStock"]) {
             const {productData, addItemToCart} = this.props;
             const {id, name, brand, prices, attributes, gallery} = productData;
 
@@ -92,7 +92,6 @@ export default class ItemPageItemInfo extends React.Component {
             />;
         });
     };
-
 
     componentDidUpdate(prevProps) {
         if (prevProps.productData.attributes !== this.props.productData.attributes) {

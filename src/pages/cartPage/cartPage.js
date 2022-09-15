@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import CartPageItem from '../../components/cartPageItem/cartPageItem';
 
 export default class CartPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderCartList = () => {
         const {cartList, renderItemCurrency, increaseItemCount, decreaseItemCount, getItemCount} = this.props;
         return cartList.map(elem => <CartPageItem key={elem.id}

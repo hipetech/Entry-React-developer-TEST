@@ -5,10 +5,6 @@ import minus from '../../resources/minus.svg';
 import PropTypes from 'prop-types';
 
 export default class CartItemCounter extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     _onClickIncreaseButton = (e) => {
         e.preventDefault();
         this.props.increaseItemCount(this.props.cartItemData);
@@ -43,7 +39,7 @@ export default class CartItemCounter extends React.Component {
                             onClick={e => this._onClickIncreaseButton(e)}
                             style={btnStyle}
                     >
-                        <img src={plus} style={imgStyle} alt="Plus image"/>
+                        <img src={plus} style={imgStyle} alt="Plus"/>
                     </button>
                     <p style={counterStyle}>
                         {
@@ -54,7 +50,7 @@ export default class CartItemCounter extends React.Component {
                             onClick={e => this._onClickDecreaseButton(e)}
                             style={btnStyle}
                     >
-                        <img src={minus} style={imgStyle} alt="Minus image"/>
+                        <img src={minus} style={imgStyle} alt="Minus"/>
                     </button>
                 </section>
             </>

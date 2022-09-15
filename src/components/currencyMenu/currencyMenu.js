@@ -3,10 +3,6 @@ import './currencyMenu.scss';
 import PropTypes from 'prop-types';
 
 export default class CurrencyMenu extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderCurrencies = () => {
         return this.props.currencies.map((element, index) => {
             return (

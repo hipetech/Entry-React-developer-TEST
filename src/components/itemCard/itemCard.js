@@ -5,10 +5,6 @@ import EmptyCartWhite from '../../resources/Empty Cart White.png';
 import {Link} from 'react-router-dom';
 
 export default class ItemCard extends React.Component {
-    constructor(prop) {
-        super(prop);
-    }
-
     _setDefaultAttributes = () => {
         const {itemData} = this.props;
         let arr = [];
@@ -41,10 +37,10 @@ export default class ItemCard extends React.Component {
         const {itemData, renderItemCurrency} = this.props;
 
         return (
-            <section className={`itemCardSection ${itemData.inStock ? '': 'notInStock'}`}>
+            <section className={`itemCardSection ${itemData[`inStock`] ? '': 'notInStock'}`}>
                 <Link to={`/item/${itemData.id}`}>
                     <div className="itemCardImgBox">
-                        <img src={itemData.gallery[0]} alt={`${name} image`} />
+                        <img src={itemData.gallery[0]} alt={`${itemData.name}`} />
                     </div>
                     <h4>
                         {
@@ -57,13 +53,13 @@ export default class ItemCard extends React.Component {
                         }
                     </p>
                     <div className="buttonCover"></div>
-                    <h5 className={`outOfStockCaption ${itemData.inStock ? 'disable': ''}`}>
+                    <h5 className={`outOfStockCaption ${itemData[`inStock`] ? 'disable': ''}`}>
                         OUT OF STOCK
                     </h5>
                 </Link>
-                <button className={`itemCardButton ${itemData.inStock ? '': 'disable'}`}
+                <button className={`itemCardButton ${itemData[`inStock`]? '': 'disable'}`}
                         onClick={this._addItemToCartOnClick}>
-                    <img src={EmptyCartWhite} alt="White card image"/>
+                    <img src={EmptyCartWhite} alt="White card"/>
                 </button>
             </section>
         );

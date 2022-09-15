@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 export default class HeadingCategory extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     _setCategory = () => {
         const {setSelected, setActiveCategory, index, category} = this.props;
 

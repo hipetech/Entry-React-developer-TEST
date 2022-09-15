@@ -43,7 +43,7 @@ export default class ItemAttribute extends React.Component {
                        disabled={disabled}
                 />
                 <p>
-                    {elem.displayValue}
+                    {elem["displayValue"]}
                 </p>
             </label>
         );
@@ -75,12 +75,8 @@ export default class ItemAttribute extends React.Component {
     };
 
     renderAttributes = () => {
-        switch (this.props.attributeData.type) {
-            case 'text':
-                return this.renderTextAttributes();
-            case 'swatch':
-                return this.renderColorAttributes();
-        }
+        if ("text") return this.renderTextAttributes();
+        else if ("swatch") return this.renderColorAttributes();
     };
 
     render() {

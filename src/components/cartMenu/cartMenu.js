@@ -5,10 +5,6 @@ import CartItem from '../cartItem/cartItem';
 import {Link} from 'react-router-dom';
 
 export default class CartMenu extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     _blockScroll = () => {
         if (this.props.isOpenCartMenu) {
             document.body.style.overflow = 'hidden';

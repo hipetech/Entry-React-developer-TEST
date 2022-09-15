@@ -24,7 +24,7 @@ export default class ErrorBoundary extends React.Component {
             return (
                 <>
                     <section className="errorBoundarySection">
-                        <img src={Error} alt="Error image"/>
+                        <img src={Error} alt="Error"/>
                         <div className="errorBoundaryButtonSection">
                             <h2>
                                 Something went wrong

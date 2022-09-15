@@ -7,10 +7,6 @@ import CartPageItemGallerySlider from '../cartPageItemGallerySlider/cartPageItem
 import {Link} from 'react-router-dom';
 
 export default class CartPageItem extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderAttributes = () => {
         const {cartItemData} = this.props;
         const {id, attributes, selectedAttributes} = cartItemData;
