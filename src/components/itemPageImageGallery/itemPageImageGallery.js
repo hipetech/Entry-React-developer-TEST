@@ -37,5 +37,5 @@ export default class ItemPageImageGallery extends React.Component {
 
 ItemPageImageGallery.propTypes = {
     gallery: PropTypes.array,
-    setActiveImage: PropTypes.func,
+    setActiveImage: PropTypes.func
 };

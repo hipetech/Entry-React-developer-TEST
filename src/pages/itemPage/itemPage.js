@@ -61,6 +61,7 @@ class ItemPageClassComponent extends React.Component {
                         setActiveImage={this.setActiveImage}
                     />
                     <ItemPageActiveImage
+                        inStock={this.state.productData["inStock"]}
                         activeImage={this.state.activeImage}
                     />
                     <ItemPageItemInfo
