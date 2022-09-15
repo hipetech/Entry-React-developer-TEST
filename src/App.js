@@ -140,7 +140,6 @@ export default class App extends React.Component {
 
     _setCurrencies = (afterSetStateFinisher = () => {}) => {
         const localStorageActiveCurrency = this.localStorageService.getActiveCurrency();
-
         this.graphQLService.getCurrencies()
             .then(res => {
                 this.setState({

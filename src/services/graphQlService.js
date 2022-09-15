@@ -7,7 +7,7 @@ export default class GraphQlService {
         this.client = new GraphQLClient(config.endpoint);
     }
 
-    getCategories = async () => {
+    getCategories = () => {
         const request = gql`
             {
                 categories {
@@ -16,10 +16,10 @@ export default class GraphQlService {
             }
         `;
 
-        return await this.client.request(request);
+        return this.client.request(request);
     };
 
-    getCurrencies = async () => {
+    getCurrencies = () => {
         const request = gql`
             {
                 currencies {
@@ -29,10 +29,10 @@ export default class GraphQlService {
             }
         `;
 
-        return await this.client.request(request);
+        return this.client.request(request);
     };
 
-    getProductsByCategory = async (inputCategory) => {
+    getProductsByCategory = (inputCategory) => {
         const request = gql`
         {
             category(input: {title: "${inputCategory}"}) {
@@ -63,10 +63,10 @@ export default class GraphQlService {
             }
         }
         `;
-        return await this.client.request(request);
+        return this.client.request(request);
     };
 
-    getProductById = async (productId) => {
+    getProductById = (productId) => {
         const request = gql`
         {
             product(id: "${productId}") {
@@ -97,6 +97,6 @@ export default class GraphQlService {
         }
         `;
 
-        return await this.client.request(request);
+        return this.client.request(request);
     };
 }

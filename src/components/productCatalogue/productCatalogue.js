@@ -10,7 +10,8 @@ export default class ProductCatalogue extends React.Component {
         super(props);
         this.state = {
             isError: false,
-            products: []
+            products: [],
+            isLoading: false
         };
         this.service = new GraphQlService();
     }
@@ -18,6 +19,7 @@ export default class ProductCatalogue extends React.Component {
     _setIsError = () => {
         this.setState({error: false});
     };
+
 
     _nameFirstLetterToUpperCase = () => {
         const {activeCategory} = this.props;
@@ -36,18 +38,22 @@ export default class ProductCatalogue extends React.Component {
         });
     };
 
+    _onRequest = (res) => {
+        this.setState({products: res.category.products})
+    };
+
     _setProducts = () => {
         this.service.getProductsByCategory(this.props.activeCategory)
-            .then(res => this.setState({products: res.category.products}))
-            .catch(() => this._setIsError);
+            .then(this._onRequest)
+            .catch(() => this._setIsError());
     };
 
     componentDidMount() {
-        this._setProducts();
+        this._setProducts()
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.activeCategory !== this.props.activeCategory) {
+        if (prevProps.activeCategory !== this.props.activeCategory && prevProps.activeCategory) {
             this._setProducts();
         }
     }
@@ -76,6 +82,5 @@ export default class ProductCatalogue extends React.Component {
 ProductCatalogue.propTypes = {
     activeCategory: PropTypes.string,
     renderItemCurrency: PropTypes.func,
-    addItemToCart: PropTypes.func,
-    noDuplicateCartArr: PropTypes.func
+    addItemToCart: PropTypes.func
 };
